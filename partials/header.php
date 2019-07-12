@@ -1,4 +1,6 @@
 <?php require_once(realpath(__DIR__."/../config/path.php")) ?>
+<?php require_once(realpath(__DIR__."/../controllers/library.php")) ?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +11,7 @@
 	<link rel="shortcut icon" type="image/png" href="<?php get_url() ?>/assets/images/sandbox.png"/>
 	<!-- Bootstrap CSS -->
 	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
-	<link rel="stylesheet" type="text/css" href="<?php get_url() ?>/assets/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php get_url() ?>/assets/css/bootstrap/bootstrap.min.css">
 	<!-- Custom CSS -->
 	<link rel="stylesheet" type="text/css" href="<?php get_url() ?>/assets/css/style.css">
 </head>

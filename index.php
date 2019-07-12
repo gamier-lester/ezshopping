@@ -1,5 +1,6 @@
 <?php 
 	$pageTitle = "Sandbox";
+	$section = "index";
 ?>
 
 <?php require_once("partials/header.php") ?>

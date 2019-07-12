@@ -1,7 +1,8 @@
 <?php 
-	$pageTitle = "Login";
-	$section = "login";
+	$pageTitle = "Register";
+	$section = "register";
 ?>
+
 
 <?php 
 	require_once("../partials/header.php");
@@ -15,21 +16,16 @@
 	<section class="row justify-content-center">
 
 		<div class="col-md-6">
-			<h2> Login 🧛 </h2>
-			<?php if(isset($_SESSION["success_registration"])): ?>
-			<p class="lead"><?php echo $_SESSION["success_registration"]; ?></p>
-			<?php session_unset($_SESSION["success_registration"]); endif; ?>
+			<h2> Register 🧛 </h2>
+			<?php if(isset($_SESSION["error_registration"])): ?>
+			<p class="lead"><?php echo $_SESSION["error_registration"]; ?></p>
+			<?php session_unset($_SESSION["error_registration"]); endif; ?>
 
-			<form action="<?php get_url() ?>/controllers/process.login.php" method="POST">
+			<form action="<?php get_url() ?>/controllers/process.register.php" method="POST">
 				<div class="form-group">
 					<label for="username"> Username </label>
 					<input id="username" type="text" name="username" class="form-control">
 				</div>
-
-				<!-- <div class="form-group">
-					<label for="email"> Email </label>
-					<input id="email" type="emain" name="email" class="form-control">
-				</div> -->
 
 				<div class="form-group">
 					<label for="password"> Password </label>
