@@ -45,7 +45,7 @@
 			<div class="col-lg-12">
 				<p>Transaction Date: <?php echo $row['transaction_date']; ?> Transaction Code: <?php echo $row['transaction_code']; ?></p>
 				<?php
-					$query = "SELECT mediaCol.media_link, itemCol.id as item_id, itemCol.name as item_name, orderCol.item_price as item_price, merchantCol.user_firstname as merchant_name, transactionCol.transaction_code, orderCol.item_quantity as order_quantity, orderCol.order_amount, orderCol.order_date as order_created, orderCol.order_update, statusCol.status_name as order_status FROM ecom_transaction transactionCol JOIN ecom_order orderCol ON transactionCol.id = orderCol.transaction_id JOIN ecom_item_basics itemCol ON orderCol.item_id = itemCol.id JOIN ecom_item_media mediaCol ON itemCol.id = mediaCol.item_id && mediaCol.type_id = 1 JOIN ecom_user_details merchantCol ON itemCol.user_id = merchantCol.user_id JOIN ecom_status statusCol ON orderCol.order_status = statusCol.id WHERE transactionCol.user_id = $user_id && transactionCol.id = $transaction_id";
+					$query = "SELECT mediaCol.media_link, itemCol.id as item_id, itemCol.name as item_name, orderCol.item_price as item_price, merchantCol.user_firstname as merchant_name, merchantCol.user_id as merchant_id,transactionCol.transaction_code, orderCol.item_quantity as order_quantity, orderCol.order_amount, orderCol.order_date as order_created, orderCol.order_update, statusCol.status_name as order_status FROM ecom_transaction transactionCol JOIN ecom_order orderCol ON transactionCol.id = orderCol.transaction_id JOIN ecom_item_basics itemCol ON orderCol.item_id = itemCol.id JOIN ecom_item_media mediaCol ON itemCol.id = mediaCol.item_id && mediaCol.type_id = 1 JOIN ecom_user_details merchantCol ON itemCol.user_id = merchantCol.user_id JOIN ecom_status statusCol ON orderCol.order_status = statusCol.id WHERE transactionCol.user_id = $user_id && transactionCol.id = $transaction_id";
 					$orders = $conn->query($query);
 					while ($orderRow = $orders->fetch_assoc()) {
 						$query = "SELECT payment_amount FROM ecom_payment WHERE transaction_id = $transaction_id ORDER BY id DESC LIMIT 1";
@@ -84,7 +84,7 @@
 								    <tr>
 								      <td><span class="align-middle"><?php echo $orderRow['item_name']; ?></span></td>
 								      <td><?php echo $orderRow['item_price']; ?></td>
-								      <td><a href="<?php echo get_url(); ?>/" class="btn">Message <?php echo $orderRow['merchant_name']; ?></a></td>
+								      <td><a href="<?php echo get_url(); ?>/views/modals/messaging.php?messageto=<?php echo $orderRow['merchant_id']; ?>" class="btn">Message <?php echo $orderRow['merchant_name']; ?></a></td>
 								    </tr>
 								  </tbody>
 								</table>
