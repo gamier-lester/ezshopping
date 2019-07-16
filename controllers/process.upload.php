@@ -28,7 +28,7 @@
 		move_uploaded_file($fileTmpName, $finalFilePath);
 		$_SESSION["profile-pic"] = 1;
 		// $_SESSION["filetype"]
-		header("Location: ".ROOT_URL."/views/profile.php");
+		header("Location: ".ROOT_URL."/views/member/profile.php");
 	} else {
 		#
 	}

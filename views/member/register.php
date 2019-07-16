@@ -5,7 +5,7 @@
 
 
 <?php 
-	require_once("../partials/header.php");
+	require_once("../../partials/header.php");
 	
 	if (isset($_SESSION["user_credentials"])) {
 		header("Location: ".ROOT_URL."/views/profile.php");
@@ -41,4 +41,4 @@
 </div>
 
 
-<?php require_once("../partials/footer.php") ?>
+<?php require_once("../../partials/footer.php") ?>

@@ -5,5 +5,5 @@
 
 	session_destroy();
 
-	header("Location: ".ROOT_URL."/views/login.php");
+	header("Location: ".ROOT_URL."/views/member/login.php");
 ?>

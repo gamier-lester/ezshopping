@@ -28,15 +28,15 @@
 						"user_password" => $row["password"]
 					);
 					$_SESSION["user_credentials"] = $user_credentials;
-					header("Location: ".ROOT_URL."/views/profile.php");
+					header("Location: ".ROOT_URL."/views/member/profile.php");
 				} else {
 					$_SESSION["error_login"] = "User data does not match";
-					header("Location: ".ROOT_URL."/views/login.php");
+					header("Location: ".ROOT_URL."/views/member/login.php");
 				}
 			}
 		} else {
 			$_SESSION["error_login"] = "User does not exist";
-			header("Location: ".ROOT_URL."/views/login.php");
+			header("Location: ".ROOT_URL."/views/member/login.php");
 		}
 	}
 ?>

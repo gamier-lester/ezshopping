@@ -17,10 +17,10 @@
 
 		if ($conn->query($query) === TRUE) {
 			$_SESSION["success_registration"] = "Successfully registered $username";
-			header("Location: ".ROOT_URL."/views/login.php");
+			header("Location: ".ROOT_URL."/views/member/login.php");
 		} else {
 			$_SESSION["error_registration"] = "There has been error on the registration of your account: $conn->error";
-			header("Location: ".ROOT_URL."/views/login.php");
+			header("Location: ".ROOT_URL."/views/member/login.php");
 		}
 
 		// close database connection
