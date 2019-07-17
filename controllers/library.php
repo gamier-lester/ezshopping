@@ -5,6 +5,7 @@
 	define("DBUSERNAME", "root");
 	define("DBPASSWORD", "");
 	define("DBNAME", "ecom");
+	define("DEFAULTDP", "https://firebasestorage.googleapis.com/v0/b/ez-shopping-11c7a.appspot.com/o/images%2Favatar.png?alt=media&token=8239916f-7b64-4960-b0c2-b89a9cfb6b4f");
 
 	// $conn = new mysqli(DBSERVERNAME, DBUSERNAME, DBPASSWORD, DBNAME);
 

@@ -1,5 +1,22 @@
 // constant
 var urlPath = 'http://localhost:8080/e-commerce';
+var selectedFile;
+// firebase
+
+// var firebaseConfig = {
+//   apiKey: "AIzaSyBdk9I4E7wKCnYYMVwpzRxYneyWrM5jcW4",
+//   authDomain: "ez-shopping-11c7a.firebaseapp.com",
+//   databaseURL: "https://ez-shopping-11c7a.firebaseio.com",
+//   projectId: "ez-shopping-11c7a",
+//   storageBucket: "",
+//   messagingSenderId: "78410641074",
+//   appId: "1:78410641074:web:ab3b63d1e1ddec8d"
+// };
+
+// Initialize Firebase
+// firebase.initializeApp(firebaseConfig);
+// end firebase
+
 // components
 async function overlayContent(item_id) {
 	if (document.querySelector('#overlay-item') !== null) {
@@ -140,3 +157,156 @@ async function overlayContent(item_id) {
 function showImage(element) {
 	element.parentElement.firstElementChild .setAttribute('src', element.getAttribute('src'));
 }	
+
+function uploadImage(event, key, targetElem) {
+	console.log(event, key);
+	const storageService = firebase.storage();
+	const storageRef = storageService.ref();
+	const metadata = {
+		contentType: 'image/jpeg',
+		cacheControl: 'public, max-age=36000000',
+	};
+
+	// document.querySelector('.file-select').addEventListener('change', handleFileUploadChange);
+	// document.querySelector('.file-submit').addEventListener('click', handleFileUploadSubmit);
+
+	if (event === 'change') {
+		element = key;
+		element.addEventListener('change', function(e) {
+			// console.log(e.target.files[0]);
+			selectedFile = e.target.files[0];
+			if (targetElem !== undefined) {
+				let preview = document.querySelector(`${targetElem}`);
+		  	let reader  = new FileReader();
+
+		  	reader.addEventListener("load", function () {
+			    preview.src = reader.result;
+			  }, false);
+			  reader.readAsDataURL(selectedFile);
+			}
+		});
+	} else if (event === 'submit') {
+		// const uploadTask = storageRef.child(`images/${selectedFile.name}`).put(selectedFile); //create a child directory called images, and place the file inside this directory
+	  newName = new Date() .getTime();
+	  const uploadTask = storageRef.child(`images/${newName}-testImage`).put(selectedFile, metadata);
+	  uploadTask.on('state_changed', (snapshot) => {
+	  // Observe state change events such as progress, pause, and resume
+	  }, (error) => {
+	    // Handle unsuccessful uploads
+	    console.log(error);
+	  }, () => {
+	     // Do something once upload is complete
+	     console.log('success');
+	     selectedFile = null;
+	     uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+		    console.log('File available at', downloadURL);
+		    document.querySelector(`#${targetElem}`).value = downloadURL;
+		   	// targetElem.value = downloadURL;
+		   	key.previousElementSibling .submit();
+		   	// console.log(targetElem);
+		  });
+	  });
+	}
+}
+// add item functions
+function changePrimaryImage(targetElement, sourceElement) {
+	console.log(sourceElement);
+	let imageContainer = document.querySelector(`${targetElement}`);
+	let sourceElem = sourceElement.target.files[0];
+	let reader  = new FileReader();
+
+	reader.addEventListener("load", function () {
+    imageContainer.src = reader.result;
+  }, false);
+  reader.readAsDataURL(sourceElem);
+}
+
+async function addNewItem(triggerElement) {
+	console.log(triggerElement);
+	const storageService = firebase.storage();
+	const storageRef = storageService.ref();
+	const metadata = {
+		contentType: 'image/jpeg',
+		cacheControl: 'public, max-age=36000000',
+	};
+	let alertMessage = `<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+											  Main image could not be empty!
+											  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+											    <span aria-hidden="true">&times;</span>
+											  </button>
+											</div>`;
+
+	async function uploadImage(imageData) {
+		mediaArray = [];
+		for (i = 0; i < imageData .length; i++) {
+			newName = new Date() .getTime();
+		  const uploadTask = storageRef.child(`images/${newName}`).put(imageData[i], metadata);
+		  uploadTask.on('state_changed', (snapshot) => {
+		  // Observe state change events such as progress, pause, and resume
+		  }, (error) => {
+		    // Handle unsuccessful uploads
+		    console.log(error);
+		  }, async () => {
+		     // Do something once upload is complete
+	    	console.log('success');
+	    	await uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+		    	console.log('File available at', downloadURL);
+		    	mediaArray.push(downloadURL);
+		   	// targetElem.value = downloadURL;
+		   	// console.log(targetElem);
+		   		if (i < ((imageData .length) - 1)) {
+		   			add_new_item_form.submit();
+		   		}
+		  	});
+		  });
+		}
+		return mediaArray;
+	}
+
+	triggerElement.style.display = 'none';
+	if (form_item_container_media_primary.files .length === 0) {
+		triggerElement.style.display = 'block';
+		triggerElement.parentElement.innerHTML += alertMessage;
+		return false;
+	}
+
+	// let primary_media = await this.uploadImage(form_item_container_media_primary.files);
+
+	// form_item_media_primary.value = JSON.stringify(primary_media);
+	// if (form_item_container_media_secondary.files .length > 0) {
+	// 	let secondary_media = await this.uploadImage(form_item_container_media_secondary.files);
+	// 	form_item_media_secondary.value =  JSON.stringify(secondary_media);
+	// }
+	// add_new_item_form.submit();
+	// // console.log('var: ',primary_media);
+	// Promise.all([primary_media]).then(function(result) {
+	// 	console.log(result);
+	// });
+
+	newName = new Date() .getTime();
+  const uploadTask = storageRef.child(`images/${newName}`).put(form_item_container_media_primary.files[0], metadata);
+  uploadTask.on('state_changed', (snapshot) => {
+  // Observe state change events such as progress, pause, and resume
+  }, (error) => {
+    // Handle unsuccessful uploads
+    console.log(error);
+  }, () => {
+     // Do something once upload is complete
+  	console.log('success');
+  	uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+    	console.log('File available at', downloadURL);
+    	form_item_media_primary.value = downloadURL;
+    	add_new_item_form.submit();
+    	// mediaArray.push(downloadURL);
+   	// targetElem.value = downloadURL;
+   	// console.log(targetElem);
+  	});
+  });
+
+}
+
+function toggleSubmitButton(element) {
+	toggleElement = document.querySelector(`${element}`);
+	toggleElement.classList.remove('display-none');
+	console.log(toggleElement);
+}

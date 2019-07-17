@@ -68,6 +68,61 @@ table.table > tbody >  tr > td {
   width: 95%;
 }
 
+/* overlay image form */
+.image-overlay-container {
+  position: relative;
+  width: 100%;
+}
+
+.image-overlay-image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.image-overlay-middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.image-overlay-container:hover .image-overlay-image {
+  opacity: 0.3;
+}
+
+.image-overlay-container:hover .image-overlay-middle {
+  opacity: 1;
+}
+
+.image-overlay-text {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
+
+.display-none {
+  display: none !important;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+  position: absolute;
+}
+
+.visibility-hidden input {
+  visibility: hidden;
+  position: absolute;
+}
+
 @media screen and (max-height: 450px) {
   .overlay a {font-size: 20px}
   .overlay .closebtn {

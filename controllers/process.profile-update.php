@@ -25,17 +25,23 @@
 			WHERE user_id LIKE '$user_id'";
 			
 			if($conn->query($query) === TRUE) {
-				echo 'update true';
+				$_SESSION['response_message']['message'] = 'Update successful!';
+				$_SESSION['response_message']['success'] = TRUE;
 			} else {
-				echo 'update false';
+				$_SESSION['response_message']['message'] = 'Update Failed!';
+				$_SESSION['response_message']['success'] = FALSE;
 			}
 	} else {
 		$query = "INSERT INTO ecom_user_details (user_id, user_firstname, user_lastname, user_email)
 			VALUES ('$user_id', '$user_firstname', '$user_lastname', '$user_email')";
 		if($conn->query($query) === TRUE) {
-			echo 'insert true';
+			$_SESSION['response_message']['message'] = 'Update successful!';
+			$_SESSION['response_message']['success'] = TRUE;
 		} else {
-			echo 'insert false';
+			$_SESSION['response_message']['message'] = 'Update Failed!';
+			$_SESSION['response_message']['success'] = FALSE;
 		}
 	}
+
+	header('Location: '.$_SERVER['HTTP_REFERER']);
 ?>
