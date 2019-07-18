@@ -35,8 +35,8 @@
 			$item_price = $value['item_price'];
 			$item_quantity = $value['order_quantity'];
 			$order_amount = bcdiv(strval($item_price * $item_quantity), '1', 2);
-			$query = "INSERT INTO ecom_order (id, transaction_id, order_date, order_update, order_status, order_type, order_amount, user_id, item_id, item_price, item_quantity) VALUES (NULL, '$last_id', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1', '2', '$order_amount', '$user_id', '$item_id', '$item_price', '$item_quantity');";
-			$conn->query($query) === TRUE
+			$query = "INSERT INTO ecom_order (id, transaction_id, order_date, order_update, order_status, order_type, order_amount, user_id, item_id, item_price, item_quantity) VALUES (NULL, '$last_id', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1', '2', '$order_amount', '$user_id', '$item_id', '$item_price', '$item_quantity')";
+			$conn->query($query);
 		}
 		unset($_SESSION['user_cart']);
 		header('Location: '.$_SERVER['HTTP_REFERER']);
