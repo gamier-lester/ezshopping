@@ -79,6 +79,10 @@ async function overlayContent(item_id) {
 	request_response = await fetch(
 		`${urlPath}/controllers/api.shopping.php`,
 		{
+			headers: {
+		    'Access-Control-Allow-Origin':'*',
+		    'Access-Control-Allow-Credentials': true
+		  },
       method: 'POST',
 			body: requestForm
 	  }).then(function(response) {
@@ -319,6 +323,10 @@ async function readMessage(messageId, buttonId) {
 	request_response = await fetch(
 		`${urlPath}/controllers/api.message.php`,
 		{
+			headers: {
+		    'Access-Control-Allow-Origin':'*',
+		    'Access-Control-Allow-Credentials': true
+		  },
       method: 'POST',
 			body: requestForm
 	  }).then(function(response) {
