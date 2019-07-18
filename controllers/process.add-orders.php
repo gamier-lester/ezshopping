@@ -30,7 +30,7 @@
 	if ($conn->query($query) === TRUE) {
 		// echo $conn->insert_id;
 		$last_id = $conn->insert_id;
-		print_r($_SESSION);
+		// print_r($_SESSION);
 		$query = "INSERT INTO ecom_order (id, transaction_id, order_date, order_update, order_status, order_type, order_amount, user_id, item_id, item_price, item_quantity) VALUES ";
 		$array_count = 1;
 		$length = count($_SESSION['user_cart']['user_orders']);
@@ -46,7 +46,7 @@
 		}
 		$conn->query($query);
 		unset($_SESSION['user_cart']);
-		// header('Location: '.$_SERVER['HTTP_REFERER']);
+		header('Location: '.$_SERVER['HTTP_REFERER']);
 	} else {
 		echo $conn->error;
 	}
