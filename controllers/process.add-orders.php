@@ -3,6 +3,8 @@
 	require_once("library.php");
 	require_once("../config/path.php");
 
+	print_r($_SESSION);
+
 	$query = "INSERT INTO ecom_order (id, transaction_id, order_date, order_update, order_status, order_type, order_amount, user_id, item_id, item_price, item_quantity) VALUES ";
 		$array_count = 1;
 		$length = count($_SESSION['user_cart']['user_orders']);
@@ -18,8 +20,8 @@
 		}
 
 		echo $query;
-		exit;
-
+		// exit;
+	/*
 	if (!isset($_SESSION['user_credentials'])) {
 		$_SESSION["error_login"] = "You must login first!";
 		header("Location: ".ROOT_URL."/views/member/login.php");
