@@ -47,4 +47,5 @@
 		}
 	}
 	unset($_SESSION['user_cart']);
+	header('Location: '.$_SERVER['HTTP_REFERER']);
 ?>
