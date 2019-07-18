@@ -2,9 +2,13 @@
 	require_once("library.php");
 	require_once("../config/path.php");
 
-	header("Access-Control-Allow-Origin: *");
-	header("Access-Control-Allow-Headers: *");
-	header("Access-Control-Allow-Headers: X-Requested-With");
+	header('Access-Control-Allow-Origin: *');
+	header('Content-type: application/json');
+	header('Access-Control-Allow-Credentials: true');
+	header('Access-Control-Max-Age: 86400');
+
+	header("Access-Control-Allow-Method: GET, POST, OPTIONS");
+	header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
 
 	$conn = new mysqli(DBSERVERNAME, DBUSERNAME, DBPASSWORD, DBNAME);
 
