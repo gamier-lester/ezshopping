@@ -31,7 +31,7 @@
 		// echo $conn->insert_id;
 		$last_id = $conn->insert_id;
 		print_r($_SESSION);
-		$query = "INSERT INTO ecom_order (id, transaction_id, order_date, order_update, order_status, order_type, order_amount, user_id, item_id, item_price, item_quantity) VALUES (NULL, '$last_id', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1', '2', '$order_amount', '$user_id', '$item_id', '$item_price', '$item_quantity')";
+		$query = "INSERT INTO ecom_order (id, transaction_id, order_date, order_update, order_status, order_type, order_amount, user_id, item_id, item_price, item_quantity) VALUES ";
 		$array_count = 1;
 		$length = count($_SESSION['user_cart']['user_orders']);
 		foreach($_SESSION['user_cart']['user_orders'] as $key => $value) {
