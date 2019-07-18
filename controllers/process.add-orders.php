@@ -40,7 +40,7 @@
 		// 	$conn->query($query);
 		// }
 		unset($_SESSION['user_cart']);
-		header('Location: '.$_SERVER['HTTP_REFERER']);
+		// header('Location: '.$_SERVER['HTTP_REFERER']);
 	} else {
 		echo $conn->error;
 	}
