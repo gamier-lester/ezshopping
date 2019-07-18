@@ -44,9 +44,11 @@
 				$query .= ', ';
 			}
 		}
-		$conn->query($query);
-		unset($_SESSION['user_cart']);
-		header('Location: '.$_SERVER['HTTP_REFERER']);
+		// $conn->query($query);
+		if ($conn->query($query) === TRUE) {
+			unset($_SESSION['user_cart']);
+			header('Location: '.$_SERVER['HTTP_REFERER']);
+		}
 	} else {
 		echo $conn->error;
 	}
