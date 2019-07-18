@@ -13,7 +13,7 @@
 		<?php } ?>
 		<a href="<?php echo get_url(); ?>/controllers/process.add-orders.php">Place orders!</a>
 		<form action="<?php get_url(); ?>/controllers/process.add-orders.php" method="POST">
-			<textarea name="mga_order" hidden><?php echo $_SESSION['user_cart']['user_orders']; ?></textarea>
+			<textarea name="mga_order" hidden><?php echo json_encode($_SESSION['user_cart']['user_orders']); ?></textarea>
 			<button type="submit">pasa pota</button>
 		</form>
 	<?php elseif (!isset($_SESSION['user_cart'])): ?>
