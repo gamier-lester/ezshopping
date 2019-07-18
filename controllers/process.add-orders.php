@@ -19,7 +19,8 @@
 			}
 		}
 
-		echo $query;
+		// echo $query;
+		var_dump($query);
 		// exit;
 	/*
 	if (!isset($_SESSION['user_credentials'])) {
