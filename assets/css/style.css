@@ -138,6 +138,10 @@ table.table > tbody >  tr > td {
   cursor: pointer;
 }
 
+.z-index-1 {
+  z-index: 1;
+}
+
 @media screen and (max-height: 450px) {
   .overlay a {font-size: 20px}
   .overlay .closebtn {

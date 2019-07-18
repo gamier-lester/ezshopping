@@ -20,7 +20,7 @@
 	<div class="container py-5">
 		<div class="row justify-content-center">
 			<div class="col-lg-3">
-				<div class="sticky-top">
+				<div class="sticky-top z-index-1">
 					<p class="lead">Sort Items</p>
 					<div class="list-group">
 						<a href="?sort=low" class="list-group-item list-group-item-action <?php echo isset($_GET['sort']) ? $_GET['sort'] === 'low' ? 'active' : '' : 'active' ;?>">Lowest Price</a>
