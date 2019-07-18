@@ -6,6 +6,7 @@
 	print_r(json_decode($_POST['mga_order']));
 	$test_orders = json_decode($_POST['mga_order']);
 	echo 'testing lang';
+	echo 'asdasdasd'.$_test_orders[37];
 	$user_id = 1;
 	$query = "INSERT INTO ecom_order (id, transaction_id, order_date, order_update, order_status, order_type, order_amount, user_id, item_id, item_price, item_quantity) VALUES ";
 		$array_count = 1;
