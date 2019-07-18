@@ -18,21 +18,15 @@
 	}
 ?>
 	<div class="container py-5">
-		<?php
-			$query = "SELECT i.name, i.price, i.description, m.media_link, u.user_firstname AS merchant_firstname, s.status_name AS item_status, t.type_name AS item_type FROM ecom_item_basics i JOIN ecom_item_media m ON i.id = m.item_id && m.type_id = 1 JOIN ecom_user_details u ON i.user_id = u.user_id JOIN ecom_status s ON i.status_id = s.id JOIN ecom_type t ON i.type_id = t.id ORDER BY i.price ASC";
-
-			$result = $conn->query($query);
-			// print_r($result);
-			// echo 'hello';
-			while ($row = $result->fetch_assoc()) {
-				print_r($row);
-				echo '<br>';
-			}
-		?>
 		<div class="row justify-content-center">
 			<div class="col-lg-3">
-				<p class="lead">sample nav</p>
-				<?php print_r($_SESSION['user_credentials']); ?>
+				<div class="sticky-top">
+					<p class="lead">Sort Items</p>
+					<div class="list-group">
+						<a href="?sort=low" class="list-group-item list-group-item-action <?php echo isset($_GET['sort']) ? $_GET['sort'] === 'low' ? 'active' : '' : 'active' ;?>">Lowest Price</a>
+						<a href="?sort=high" class="list-group-item list-group-item-action <?php echo isset($_GET['sort']) ? $_GET['sort'] === 'high' ? 'active' : '' : '' ;?>">Highest Price</a>
+					</div>
+				</div>
 			</div>
 			<div class="col-lg-9">
 				<div class="row justify-content-around">
@@ -55,19 +49,20 @@
 					<?php endif; ?>
 					<?php
 						// $query = "SELECT * FROM ecom_item_basics LIMIT $limit OFFSET $offset";
-						$query = "SELECT i.id, i.name, i.price, i.description, m.media_link, u.user_firstname AS merchant_firstname, s.status_name AS item_status, t.type_name AS item_type FROM ecom_item_basics i JOIN ecom_item_media m ON i.id = m.item_id && m.type_id = 1 JOIN ecom_user_details u ON i.user_id = u.user_id JOIN ecom_status s ON i.status_id = s.id JOIN ecom_type t ON i.type_id = t.id";
+						$order = isset($_GET['sort']) ? $_GET['sort'] === 'low' ? 'ASC' : 'DESC' : 'ASC' ;
+						$query = "SELECT i.id, i.name, i.price, i.description, m.media_link, u.user_firstname AS merchant_firstname, s.status_name AS item_status, t.type_name AS item_type FROM ecom_item_basics i JOIN ecom_item_media m ON i.id = m.item_id && m.type_id = 1 JOIN ecom_user_details u ON i.user_id = u.user_id JOIN ecom_status s ON i.status_id = s.id JOIN ecom_type t ON i.type_id = t.id ORDER BY i.price ".$order;
 						$result = $conn->query($query);
 						if ($result->num_rows > 0):
 					?>
 					<?php while ($row = $result->fetch_assoc()) { ?>
-					<div class="card col-lg-4 mb-2 mx-1" onclick="overlayContent(<?php echo $row["id"]; ?>)">
-						<img src="<?php echo $row["media_link"]; ?>" class="card-img-top">
+					<div class="card col-lg-3 mb-2 mx-1 item-card" onclick="overlayContent(<?php echo $row["id"]; ?>)">
+						<img src="<?php echo $row["media_link"]; ?>" class="card-img-top pt-2">
 					  <div class="card-body">
 					    <h5 class="card-title"><?php echo $row["name"] ?></h5>
 					    <h6 class="card-subtitle mb-2 text-muted"><?php echo $row["price"] ?></h6>
 					    <p class="card-text"><?php echo $row["description"] ?></p>
-					    <a href="#" class="card-link">Visit Seller</a>
-					    <a href="#" class="card-link">Add to Cart &times;</a>
+					    <!-- <a href="#" class="card-link">Visit Seller</a> -->
+					    <!-- <a href="#" class="card-link">Add to Cart &times;</a> -->
 					  </div>
 					</div>
 					<?php } ?>

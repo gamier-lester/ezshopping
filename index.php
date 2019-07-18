@@ -11,8 +11,8 @@
 			<div class="col">
 				<h1> E-commerce Web Site </h1>
 				<p> My vanilla version  </p>
-				<input type="file" name="testz" onclick="uploadImage('change',this)">
-				<button onclick="uploadImage('submit',event)">submit</button>
+<!-- 				<input type="file" name="testz" onclick="uploadImage('change',this)">
+				<button onclick="uploadImage('submit',event)">submit</button> -->
 			</div>
 		</section>
 	</div>

@@ -123,6 +123,21 @@ table.table > tbody >  tr > td {
   position: absolute;
 }
 
+/* message thread profile */
+.message-thread-container {
+  height: 30vh;
+}
+
+.message-thread-responsive {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+/* items on home */
+.item-card {
+  cursor: pointer;
+}
+
 @media screen and (max-height: 450px) {
   .overlay a {font-size: 20px}
   .overlay .closebtn {

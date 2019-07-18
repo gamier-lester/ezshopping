@@ -1,5 +1,6 @@
 <?php
-	$url_path = "/e-commerce";
+	// $url_path = "/e-commerce";
+	$url_path = "/ez-shopping";
 	define("ROOT_DIR", realpath(__DIR__."/.."));
 	define("ROOT_URL", $url_path);
 	

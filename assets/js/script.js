@@ -310,3 +310,26 @@ function toggleSubmitButton(element) {
 	toggleElement.classList.remove('display-none');
 	console.log(toggleElement);
 }
+
+// functions for messages
+async function readMessage(messageId, buttonId) {
+	let requestForm = new FormData();
+	requestForm.append('process', 'message_read');
+	requestForm.append('message_id', messageId);
+	request_response = await fetch(
+		`${urlPath}/controllers/api.message.php`,
+		{
+      method: 'POST',
+			body: requestForm
+	  }).then(function(response) {
+      if (response.status >= 200 && response.status < 300) {
+          return response.json()
+      }
+      throw new Error(response.statusText)
+    }).then(function(response) {
+      return response;
+  });
+
+  console.log(request_response);
+  document.querySelector(`#${buttonId} span.badge`).remove();
+}

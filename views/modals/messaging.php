@@ -24,21 +24,14 @@
 
 		<div class="col-md-6">
 			<h2> Send Message 🧛 </h2>
-			<?php if (isset($_SESSION['success_message'])): ?>
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
-			 	<?php echo $_SESSION['success_message']; ?>
+			<?php if (isset($_SESSION['response_message'])): ?>
+			<div class="alert alert-<?php echo $_SESSION['response_message']['success'] ? 'success' : 'danger'; ?> alert-dismissible fade show" role="alert">
+			 	<?php echo $_SESSION['response_message']['message']; ?>
 			  <button type="button" class="close" data-dismiss="alert">
 			    <span>&times;</span>
 			  </button>
 			</div>
-			<?php elseif(isset($_SESSION['error_message'])): ?>
-			<div class="alert alert-danger alert-dismissible fade show" role="alert">
-			 	<?php echo $_SESSION['error_message']; ?>
-			  <button type="button" class="close" data-dismiss="alert">
-			    <span>&times;</span>
-			  </button>
-			</div>
-			<?php endif; ?>
+			<?php unset($_SESSION['response_message']); endif; ?>
 			<form action="<?php get_url() ?>/controllers/process.send-message.php" method="POST">
 				<div class="form-group">
 					<label for="receiver_name"> Recipient </label>
