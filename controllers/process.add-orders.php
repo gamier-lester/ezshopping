@@ -4,7 +4,7 @@
 	require_once("../config/path.php");
 
 	// print_r($_SESSION);
-
+	echo 'testing lang';
 	$query = "INSERT INTO ecom_order (id, transaction_id, order_date, order_update, order_status, order_type, order_amount, user_id, item_id, item_price, item_quantity) VALUES ";
 		$array_count = 1;
 		$length = count($_SESSION['user_cart']['user_orders']);
