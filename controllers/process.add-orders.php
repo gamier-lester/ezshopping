@@ -25,7 +25,7 @@
 	}
 	$user_id = $_SESSION['user_credentials']['user_id'];
 	$transaction_code = sha1($user_id . date(DATE_RFC2822));
-	$query = "INSERT INTO ecom_transaction (transaction_status, transaction_type, transaction_code, user_id) VALUES ";
+	$query = "INSERT INTO ecom_transaction (transaction_status, transaction_type, transaction_code, user_id) VALUES (1,2,'$transaction_code',$user_id)";
 	// echo date(DATE_RFC2822);
 	if ($conn->query($query) === TRUE) {
 		// echo $conn->insert_id;
@@ -39,7 +39,7 @@
 			$item_price = $value['item_price'];
 			$item_quantity = $value['order_quantity'];
 			$order_amount = bcdiv(strval($item_price * $item_quantity), '1', 2);
-			$query .= "(1,2,'$transaction_code',$user_id)";
+			$query .= "(NULL, '$last_id', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1', '2', '$order_amount', '$user_id', '$item_id', '$item_price', '$item_quantity')";
 			if ($array_count != $length) {
 				$query .= ', ';
 			}
