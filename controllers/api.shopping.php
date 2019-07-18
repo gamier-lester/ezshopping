@@ -9,6 +9,10 @@
 		die("Connection failed: ".$conn->connect_error);
 	}
 
+	header("Access-Control-Allow-Origin: *");
+	header("Access-Control-Allow-Headers: *");
+	header("Access-Control-Allow-Headers: X-Requested-With");
+
 	switch ($_POST['process']) {
 		case 'fetch_one':
 			$request_data = array();

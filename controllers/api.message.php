@@ -2,6 +2,10 @@
 	require_once("library.php");
 	require_once("../config/path.php");
 
+	header("Access-Control-Allow-Origin: *");
+	header("Access-Control-Allow-Headers: *");
+	header("Access-Control-Allow-Headers: X-Requested-With");
+
 	$conn = new mysqli(DBSERVERNAME, DBUSERNAME, DBPASSWORD, DBNAME);
 
 	if ($conn->connect_error) {
