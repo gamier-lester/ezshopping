@@ -1,5 +1,6 @@
 // constant
-var urlPath = 'http://localhost:8080/e-commerce';
+// var urlPath = 'http://localhost:8080/e-commerce';
+var urlPath = 'https://ez-shopping.herokuapp.com';
 var selectedFile;
 // firebase
 
@@ -79,10 +80,6 @@ async function overlayContent(item_id) {
 	request_response = await fetch(
 		`${urlPath}/controllers/api.shopping.php`,
 		{
-			headers: {
-		    'Access-Control-Allow-Origin':'*',
-		    'Access-Control-Allow-Credentials': true
-		  },
       method: 'POST',
 			body: requestForm
 	  }).then(function(response) {
