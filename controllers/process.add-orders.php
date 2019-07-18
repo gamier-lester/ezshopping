@@ -4,11 +4,12 @@
 	require_once("../config/path.php");
 
 	print_r(json_decode($_POST['mga_order']));
+	$test_orders = json_decode($_POST['mga_order']);
 	echo 'testing lang';
 	$query = "INSERT INTO ecom_order (id, transaction_id, order_date, order_update, order_status, order_type, order_amount, user_id, item_id, item_price, item_quantity) VALUES ";
 		$array_count = 1;
 		$length = count($_SESSION['user_cart']['user_orders']);
-		foreach($_SESSION['user_cart']['user_orders'] as $key => $value) {
+		foreach($test_orders as $key => $value) {
 			$item_id = $key;
 			$item_price = $value['item_price'];
 			$item_quantity = $value['order_quantity'];
