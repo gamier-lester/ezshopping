@@ -3,7 +3,7 @@
 	require_once("library.php");
 	require_once("../config/path.php");
 
-	print_r(json_decode($_POST['mga_order']));
+	echo (json_decode($_POST['mga_order']));
 	$test_orders = json_decode($_POST['mga_order']);
 	echo 'testing lang';
 	echo 'asdasdasd'.$_test_orders[37];
