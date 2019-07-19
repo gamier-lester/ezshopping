@@ -3,28 +3,33 @@
 	require_once("library.php");
 	require_once("../config/path.php");
 
-	print_r(json_decode($_POST['mga_order']));
-	$test_orders = json_decode($_POST['mga_order']);
-	echo 'testing lang';
-	echo 'asdasdasd'.$_test_orders[37];
-	print_r($test_orders['37']);
-	$user_id = 1;
-	$query = "INSERT INTO ecom_order (id, transaction_id, order_date, order_update, order_status, order_type, order_amount, user_id, item_id, item_price, item_quantity) VALUES ";
-		$array_count = 1;
-		$length = count($test_orders);
-		foreach($test_orders as $key => $value) {
-			$item_id = $key;
-			$item_price = $value['item_price'];
-			$item_quantity = $value['order_quantity'];
-			$order_amount = bcdiv(strval($item_price * $item_quantity), '1', 2);
-			$query .= "(NULL, '$last_id', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1', '2', '$order_amount', '$user_id', '$item_id', '$item_price', '$item_quantity')";
-			if ($array_count != $length) {
-				$query .= ', ';
-			}
-		}
+	// print_r(json_decode($_POST['mga_order']));
+	// $test_orders = json_decode($_POST['mga_order']);
+	// echo 'testing lang';
+	// echo 'asdasdasd'.$_test_orders[37];
+	// print_r($test_orders['37']);
+
+	foreach($_SESSION['user_cart']['user_orders'] as $key => $value){
+		echo "<p>$key : $value</p>";
+	}
+
+	// $user_id = 1;
+	// $query = "INSERT INTO ecom_order (id, transaction_id, order_date, order_update, order_status, order_type, order_amount, user_id, item_id, item_price, item_quantity) VALUES ";
+	// 	$array_count = 1;
+	// 	$length = count($test_orders);
+	// 	foreach($test_orders as $key => $value) {
+	// 		$item_id = $key;
+	// 		$item_price = $value['item_price'];
+	// 		$item_quantity = $value['order_quantity'];
+	// 		$order_amount = bcdiv(strval($item_price * $item_quantity), '1', 2);
+	// 		$query .= "(NULL, '$last_id', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1', '2', '$order_amount', '$user_id', '$item_id', '$item_price', '$item_quantity')";
+	// 		if ($array_count != $length) {
+	// 			$query .= ', ';
+	// 		}
+	// 	}
 
 		// echo $query;
-		var_dump($query);
+		// var_dump($query);
 		// exit;
 	/*
 	if (!isset($_SESSION['user_credentials'])) {
