@@ -13,14 +13,15 @@
 	$cart_count = 1;
 	$cart_length = count($_SESSION['user_cart']['user_orders']);
 	foreach($_SESSION['user_cart']['user_orders'] as $key => $value){
-		$cart_count++;
-		$order_amount = bcdiv(strval($item_price * $item_quantity), '1', 2);
-		$query .= "(NULL, '$last_id', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1', '2', '$order_amount', '$user_id', '$key', '$value['item_price']', '$value['order_quantity']')";
-		if ($array_count != $length) {
-			$query .= ', ';
-		}
+		echo "<p>$key: $value['order_quantity'], P$value['item_price']</p>";
+		// $cart_count++;
+		// $order_amount = bcdiv(strval($item_price * $item_quantity), '1', 2);
+		// $query .= "(NULL, '$last_id', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1', '2', '$order_amount', '$user_id', '$key', '$value['item_price']', '$value['order_quantity']')";
+		// if ($array_count != $length) {
+		// 	$query .= ', ';
+		// }
 	}
-	echo $query;
+	// echo $query;
 
 	// $user_id = 1;
 	// $query = "INSERT INTO ecom_order (id, transaction_id, order_date, order_update, order_status, order_type, order_amount, user_id, item_id, item_price, item_quantity) VALUES ";
