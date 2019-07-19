@@ -134,13 +134,39 @@ table.table > tbody >  tr > td {
 }
 
 /* items on home */
-.item-card {
+.cursor-pointer {
   cursor: pointer;
 }
 
 .z-index-1 {
   z-index: 1;
 }
+
+
+/* loader */
+.loader-wrapper {
+  height: 75px;
+  width: 75px;
+  background-color: transparent;
+  z-index: 1000;
+  align-self: center;
+}
+
+.loader {
+  display: block;
+  border: 8px solid #f7fbfe;
+  border-radius: 50%;
+  border-top: 8px solid #363638;
+  width: 75px;
+  height: 75px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 
 @media screen and (max-height: 450px) {
   .overlay a {font-size: 20px}

@@ -50,5 +50,8 @@
 	<!-- end firebase -->
 	<?php endif; ?>
 	<script type="text/javascript" src="<?php get_url() ?>/assets/js/script.js"></script>
+	<!-- custome page js -->
+	<?php global $page_js; ?>
+	<script type="module" src="<?php get_url(); echo $page_js; ?>"></script>
 </body>
 </html>
