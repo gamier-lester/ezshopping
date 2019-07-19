@@ -11,7 +11,7 @@
 	$user_id = 1;
 	$query = '';
 	$cart_count = 1;
-	$cart_length = count($_SESSION['user_cart']['user_orders']);
+	// $cart_length = count($_SESSION['user_cart']['user_orders']);
 	foreach($_SESSION['user_cart']['user_orders'] as $key => $value){
 		echo "<p>$key: $value['order_quantity'], P$value['item_price']</p>";
 		// $cart_count++;
