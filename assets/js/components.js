@@ -22,6 +22,33 @@
 
 const projectUrl = 'http://localhost:8080/e-commerce';
 
+class AccordionComponent {
+	constructor() {
+
+	}
+
+	generate(dataObject) {
+		return `
+			<div class="card">
+		    <div class="card-header">
+		      <h2 class="mb-0">
+		        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#message_${dataObject.message_id}" data-message-id="${dataObject.message_id}">
+		        	text
+		        </button>
+		      </h2>
+		    </div>
+		    <div id="message_${dataObject.message_id}" class="collapse" data-parent="#messageAccordion">
+		      <div class="card-body">
+		        <p class="text-right">Message <i>text</i></p>
+		        <p class="lead">Message...</p>
+		        <p class="lead">&emsp;&emsp; Message body</p>
+		      </div>
+		    </div>
+		  </div>
+		`;
+	}
+}
+
 class AlertComponent {
 	constructor(targetElement) {
 		this.targetElement = targetElement;
@@ -64,6 +91,56 @@ class CardComponent {
 	}
 }
 
+class FormComponent {
+	constructor() {
+
+	}
+
+	generateItemForm(dataObject) {
+		return `
+		<div class="card card-body">
+	    <div class="row">
+	    	<div class="col-lg-6">
+	    		<div class="image-overlay-container">
+					  <img id="item_${dataObject.queueNumber}_image" src="${dataObject.item_media_link}" alt="Avatar" class="image-overlay-image">
+					  <div class="image-overlay-middle">
+					    <div class="image-overlay-text"><label for="item_${dataObject.queueNumber}_form_item_media">Update Item Photo</label></div>
+					  </div>
+					</div>
+	    	</div>
+	    	<div class="col-lg-6">
+	    		<div id="item_${dataObject.queueNumber}_alert" class="col-lg-12"></div>
+	    		<form id="item_${dataObject.queueNumber}_form" data-item-id="${dataObject.item_id}">
+	    			<div class="form-group row">
+						  <label for="item_${dataObject.queueNumber}_form_item_name" class="col-sm-4 col-form-label">Item Name</label>
+						  <div class="col-sm-8">
+						  	<input id="item_${dataObject.queueNumber}_form_item_name" type="text" class="form-control text-center" name="form_item_name" placeholder="Item name..." value="${dataObject.item_name}">
+						  </div>
+						</div>
+	    			<div class="form-group row">
+						  <label for="item_${dataObject.queueNumber}_form_item_description" class="col-sm-4 col-form-label">Description</label>
+						  <div class="col-sm-8">
+						  	<textarea class="form-control" id="item_${dataObject.queueNumber}_form_item_description" rows="3" name="form_item_description" placeholder="Describe your item here...">${dataObject.item_description}</textarea>
+						  </div>
+						</div>
+	    			<div class="form-group row">
+						  <label for="item_${dataObject.queueNumber}_form_item_price" class="col-sm-4 col-form-label">Price</label>
+						  <div class="col-sm-8">
+						  	<input id="item_${dataObject.queueNumber}_form_item_price" type="number" class="form-control text-center" name="form_item_price" placeholder="1" value="${dataObject.item_price}">
+						  </div>
+						</div>
+						<div class="form-group">
+							<input id="item_${dataObject.queueNumber}_form_item_media" class="form-control" type="file" name="item_${dataObject.queueNumber}_form_item_media" accept="image/*" hidden>
+						</div>
+	    		</form>
+	    		<button id="item_${dataObject.queueNumber}_form_item_submit" type="button" class="btn btn-block btn-success item-update-button" data-group-id="${dataObject.queueNumber}">Update Item</button>
+	    	</div>
+	    </div>
+	  </div>
+	  `;
+	}
+}
+
 class SpinnerComponent {
 	wholeScreen = false;
 	oldElement = '';
@@ -96,4 +173,4 @@ class SpinnerComponent {
 	}
 }
 
-export { AlertComponent, CardComponent, SpinnerComponent };
+export { AlertComponent, CardComponent, FormComponent, SpinnerComponent };

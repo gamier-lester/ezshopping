@@ -159,7 +159,7 @@ function showImage(element) {
 	element.parentElement.firstElementChild .setAttribute('src', element.getAttribute('src'));
 }	
 
-function uploadImage(event, key, targetElem) {
+function uploadImagze(event, key, targetElem) {
 	console.log(event, key);
 	const storageService = firebase.storage();
 	const storageRef = storageService.ref();
