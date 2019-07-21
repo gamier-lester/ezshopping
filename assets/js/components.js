@@ -141,6 +141,59 @@ class FormComponent {
 	}
 }
 
+class PaginationComponent {
+	constructor(dataObject) {
+		this.offset = 0;
+		this.limit = parseInt(dataObject.limit);
+		this.maxCount = parseInt(dataObject.maxCount);
+
+		if (this.maxCount % this.limit) {
+			this.maxCount = this.maxCount + this.limit;
+		}
+	}
+	create() {
+		var paginationHeader = `<nav><ul class="pagination justify-content-end">`;
+		var paginationFooter = `</ul></nav>`;
+	  var pageBody = '';
+		var fetchLimit = this.limit;
+	  var fetchOffset = this.offset;
+	  var fetchMaxCount = this.maxCount;
+	  var pageActive = true;
+	  var pageLimit = parseInt(fetchMaxCount / fetchLimit);
+	  if (fetchMaxCount % fetchLimit) {
+	    pageLimit++;
+	  }
+	  if (isNaN(fetchLimit)) {
+	  	let parseErr = {}
+	  	parseErr.message = 'is not a number';
+	  	parseErr.success = false;
+	  	return parseErr;
+	  } else if (isNaN(fetchOffset)) {
+	  	let parseErr = {}
+	  	parseErr.message = 'is not a number';
+	  	parseErr.success = false;
+	  	return parseErr;
+	  } else if (isNaN(fetchMaxCount)) {
+	  	let parseErr = {}
+	  	parseErr.message = 'is not a number';
+	  	parseErr.success = false;
+	  	return parseErr;
+	  } 
+	  for (let pageNumber = 1; pageNumber < pageLimit; pageNumber++) {
+	    pageBody += `<li class="page-item ${pageActive ? 'active' : ''} pagination-button"><button class="page-link" data-offset="${fetchOffset}" data-limit="${fetchLimit}">${pageNumber}</button></li>`;
+	    fetchOffset = fetchOffset + fetchLimit;
+	    pageActive = false;
+	  }
+	  // return pageButtons;
+		// return paginationBody;
+		return paginationHeader + pageBody + paginationFooter;
+	}
+
+	sss() {
+		return 'world';
+	}
+}
+
 class SpinnerComponent {
 	wholeScreen = false;
 	oldElement = '';
@@ -173,4 +226,4 @@ class SpinnerComponent {
 	}
 }
 
-export { AlertComponent, CardComponent, FormComponent, SpinnerComponent };
+export { AlertComponent, CardComponent, FormComponent, PaginationComponent,SpinnerComponent };

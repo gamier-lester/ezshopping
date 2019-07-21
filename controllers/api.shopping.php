@@ -46,8 +46,9 @@
 			$response_data['item_related_search'] = $related_search_array;
 			$response_data['response_message']['message'] = 'Fetch successful';
 			$response_data['response_message']['success'] = TRUE;
-
 			echo json_encode($response_data);
+			$result->free();
+			$conn->close();
 			break;
 
 		case 'fetch_default':
@@ -64,6 +65,8 @@
 				}
 			}
 			echo json_encode($response_data);
+			$result->free();
+			$conn->close();
 			break;
 
 		case 'fetch_count':
@@ -71,6 +74,8 @@
 			$result = $conn->query($query);
 			$response_data['item_count'] = intval($result->fetch_assoc()['COUNT(*)']);
 			echo json_encode($response_data);
+			$result->free();
+			$conn->close();
 			break;
 	}
 ?>

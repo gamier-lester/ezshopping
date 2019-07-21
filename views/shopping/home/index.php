@@ -24,6 +24,9 @@
 					</div>
 				</div>
 			</div>
+			<div id="page-pagination" class="col-lg-10">
+				<nav><ul class="pagination justify-content-end"></ul></nav>
+			</div>
 		</div>
 	</div>
 
