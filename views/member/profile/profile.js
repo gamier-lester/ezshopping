@@ -1,8 +1,11 @@
 import  ApiCall  from '../../../assets/js/api.js';
-import { AlertComponent, FormComponent, SpinnerComponent } from '../../../assets/js/components.js';
+import { AlertComponent, FormComponent, NavigationComponent, SpinnerComponent } from '../../../assets/js/components.js';
+import config from '../../../config/config.js';
 
 // variables
 // const registerButtonLoading = new SpinnerComponent('register-button');
+const projectUrl = config.production ? config.projectUrl.production : config.projectUrl.development;
+const pageNav = new NavigationComponent(projectUrl);
 const profileContainerAlert = new AlertComponent('profile-alert-container');
 const profileDetailsContainerAlert = new AlertComponent('profile-details-alert-container');
 const contentContainerAlert = new AlertComponent('content-alert-container');
@@ -269,6 +272,13 @@ function showSubmit(element) {
 }
 
 // functions ()
+if (JSON.parse(window.localStorage.getItem('member')) === null) {
+  window.location.assign(projectUrl+'/views/member/login/index.php');
+} else if (JSON.parse(window.localStorage.getItem('member')) !== null) {
+  document.querySelector('#page-navigation .container').innerHTML += pageNav.setMember('profile', JSON.parse(window.localStorage.getItem('member')) .username);
+  pageNav.startListener();
+}
+
 requestForm.set('request_process', 'fetch_primary_media');
 requestForm.set('request_member_id', JSON.parse(window.localStorage.getItem('member')) .id);
 profileMediaContainerLoading.start();

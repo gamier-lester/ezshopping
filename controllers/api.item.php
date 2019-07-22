@@ -46,6 +46,24 @@
 			echo json_encode($response_data);
 			break;
 
+		case 'fetch_one':
+			$item_id = sanitize_input($_POST['request_item_id']);
+			$query = "SELECT id, name, price FROM ecom_item_basics WHERE id = $item_id";
+			$result = $conn->query($query);
+			if ($result->num_rows > 0) {
+				$response_data['item_detail'] = array();
+				$response_data['item_detail'] = $result->fetch_assoc();
+				$response_data['response_message']['message'] = 'Successfully retrieved data';
+				$response_data['response_message']['success'] = TRUE;
+			} else {
+				$response_data['response_message']['message'] = 'No data found on record';
+				$response_data['response_message']['success'] = FALSE;
+			}
+			echo json_encode($response_data);
+			$result->free();
+			$conn->close();
+			break;
+
 		case 'fetch_user_items':
 			$user_id = sanitize_input($_POST['request_member_id']);
 			$query = "SELECT itemRow.id as item_id, itemRow.name as item_name, itemRow.description as item_description, itemRow.price as item_price, mediaRow.media_link FROM ecom_item_basics itemRow JOIN ecom_item_media mediaRow ON itemRow.id = mediaRow.item_id && mediaRow.type_id = 1 WHERE itemRow.user_id = $user_id";

@@ -1,7 +1,10 @@
 import  ApiCall  from '../../../assets/js/api.js';
-import { AlertComponent, SpinnerComponent } from '../../../assets/js/components.js';
+import { AlertComponent, NavigationComponent, SpinnerComponent } from '../../../assets/js/components.js';
+import config from '../../../config/config.js';
 
 // variables
+const projectUrl = config.production ? config.projectUrl.production : config.projectUrl.development;
+const pageNav = new NavigationComponent(projectUrl);
 const registerButtonLoading = new SpinnerComponent('register-button');
 const registerAlert = new AlertComponent('alert-container');
 const memberApi = new ApiCall('api.member.php');
@@ -23,11 +26,19 @@ function register(event) {
 		registerAlert.alert(alertData);
 		registerButtonLoading.end();
 		if (response.response_message.success) {
-			window.location.assign('http://localhost:8080/e-commerce/views/member/login/index.php');
+			window.location.assign(projectUrl+'views/member/login/index.php');
 		}
 	});
 	event.disabled = false;
 }
 
 // functions ()
+if (JSON.parse(window.localStorage.getItem('member')) === null) {
+  document.querySelector('#page-navigation .container').innerHTML += pageNav.setDefault('register');
+  pageNav.startListener();
+} else if (JSON.parse(window.localStorage.getItem('member')) !== null) {
+	window.location.assign(projectUrl+'/views/member/profile/index.php');
+}
+
+// window.functions
 window.register = register;

@@ -1,6 +1,5 @@
 <?php 
-	$pageTitle = "Profile";
-	$section = "profile";
+	$pageTitle = 'Member - Profile';
 	$page_css = '/views/member/profile/profile.css';
 	$page_js = '/views/member/profile/profile.js';
 	$use_firebase = true;

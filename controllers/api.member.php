@@ -23,7 +23,7 @@
 		case 'login':
 			$username = sanitize_input($_POST['request_member_username']);
 			$password = sha1(sanitize_input($_POST['request_member_password']));
-			$query = "SELECT id, access_token FROM ecom_user_credentials WHERE username = '$username' AND password = '$password'";
+			$query = "SELECT id, access_token, username FROM ecom_user_credentials WHERE username = '$username' AND password = '$password'";
 			$result = $conn->query($query);
 			if ($result->num_rows > 0) {
 				$response_data['member'] = $result->fetch_assoc();

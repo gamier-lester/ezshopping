@@ -1,6 +1,5 @@
 <?php 
-	$pageTitle = "Login";
-	$section = "login";
+	$pageTitle = 'Login - Member';
 	$page_css = '/views/member/login/login.css';
 	$page_js = '/views/member/login/login.js';
 	require_once("../../../partials/header.php");

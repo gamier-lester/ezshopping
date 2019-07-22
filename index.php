@@ -1,6 +1,5 @@
 <?php 
 	$pageTitle = "Sandbox";
-	$section = "index";
 	$use_firebase = true;
 ?>
 

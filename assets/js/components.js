@@ -21,7 +21,6 @@
 // }
 
 const projectUrl = 'http://localhost:8080/e-commerce';
-
 class AccordionComponent {
 	constructor() {
 
@@ -68,6 +67,7 @@ class AlertComponent {
 
 class CardComponent {
 	constructor(dataObject) {
+		this.cardId = dataObject.cardId;
 		this.cardImage = dataObject.cardImage;
 		this.cardTitle = dataObject.cardTitle;
 		this.cardSubtitle = dataObject.cardSubtitle;
@@ -77,16 +77,43 @@ class CardComponent {
 
 	createItem() {
 		return `
-			<div class="card col-lg-3 mb-2 mx-1 cursor-pointer">
-				<img src="${this.cardImage}" class="card-img-top pt-2">
-			  <div class="card-body">
-			    <h5 class="card-title">${this.cardTitle}</h5>
-			    <h6 class="card-subtitle mb-2 text-muted">${this.cardSubtitle}</h6>
-			    <p class="card-text">${this.cardText}</p>
-			    <a href="${this.cardLink}" class="card-link">Visit Item</a>
+			<div id="item-${this.cardId}" data-item-id=${this.cardId} class="card col-lg-3 mb-2 mx-1 cursor-pointer">
+				<img src="${this.cardImage}" data-item-id=${this.cardId} class="card-img-top pt-2">
+			  <div data-item-id=${this.cardId} class="card-body">
+			    <h5 data-item-id=${this.cardId} class="card-title">${this.cardTitle}</h5>
+			    <h6 data-item-id=${this.cardId} class="card-subtitle mb-2 text-muted">${this.cardSubtitle}</h6>
+			    <p data-item-id=${this.cardId} class="card-text">${this.cardText}</p>
+			    <a data-item-id=${this.cardId} href="${this.cardLink}" class="card-link">Visit Item</a>
 			    <!-- <a href="#" class="card-link">Add to Cart &times;</a> -->
 			  </div>
 			</div>
+		`;
+	}
+
+	createUser() {
+		return `
+			<div class="card-body row">
+				<img src="${this.cardImage}" class="col-lg-4">
+		    <div class="col-lg-8 row">
+		    <h5 class="card-title col-lg-12">Merchant: ${this.cardTitle}</h5>
+		    <p class="card-subtitle col-lg-12">${this.cardSubtitle}</p>
+		    <p class="card-text col-lg-12">Date Joined: ${this.cardText}</p>
+		    <div class="col-lg-12 row justify-content-around">
+		    	<button data-user-id="${this.cardId}" class="btn btn-block col-lg-5 m-0 btn-primary visit-merchant">Visit ${this.cardTitle}</button>
+	        <button data-user-id="${this.cardId}" class="btn btn-block col-lg-5 m-0 btn-success message-merchant">Message ${this.cardTitle}</button>
+				</div>
+			</div>
+		`;
+	}
+
+	createAd() {
+		return `
+			<div class="card col-lg-3">
+    		<div class="card-body">
+        	<a data-item-id=${this.cardId} class="card-link" href="#">View ${this.cardTitle}</a>
+        	<img src="${this.cardImage}" class="card-img pt-2">
+        </div>
+    	</div>
 		`;
 	}
 }
@@ -139,6 +166,79 @@ class FormComponent {
 	  </div>
 	  `;
 	}
+
+	generateCartForm(dataObject) {
+		return `
+			<div id="item-${dataObject.id}" data-item-id="${dataObject.id}" class="row justify-content-around">
+				<img src="${dataObject.media_link}" class="col-lg-12">
+				<div class="col-lg-12 mt-3">
+					<h5 class="h5">₱ ${dataObject.price}</h5>
+				</div>
+				<div class="col-lg-12">
+					<form id="form-item-${dataObject.id}" data-item-id="${dataObject.id}">
+						<div class="form-group">
+							<input type="number" name="order_quantity" id="order_quantity" class="form-control" placeholder="1" min="1" max="25" required>
+						</div>
+						<button data-target="#form-item-${dataObject.id}" type="button" class="btn btn-block btn-success cart-button">ADD TO CART</button>
+					</form>
+				</div>
+			</div>
+		`;
+	}
+}
+
+class NavigationComponent {
+	constructor(projectLink) {
+		this.projectLink = projectLink;
+	}
+
+	setDefault(currentPage) {
+		return `
+			<div class="collapse navbar-collapse" id="ez-shopping-navbar">
+		    <ul class="navbar-nav ml-auto">
+		      <li class="nav-item">
+		        <a class="nav-link ${currentPage === 'login' ? 'active' : ''} navigation-trigger" href="#" data-target="${this.projectLink}/views/member/login/index.php">📝 Login</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link ${currentPage === 'register' ? 'active' : ''} navigation-trigger" href="#" data-target="${this.projectLink}/views/member/register/index.php">📝 Register</a>
+		      </li>
+		    </ul>
+		  </div>
+		`;
+	}
+
+	setMember(currentPage, navUser) {
+		return `
+			<div class="collapse navbar-collapse" id="ez-shopping-navbar">
+		    <ul class="navbar-nav ml-auto">
+		      <li class="nav-item">
+		        <a class="nav-link ${currentPage === 'home' ? 'active' : ''} navigation-trigger" href="#" data-target="${this.projectLink}/views/shopping/home/index.php">📝 Home</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link ${currentPage === 'cart' ? 'active' : ''} navigation-trigger" href="#" data-target="${this.projectLink}/views/shopping/">📝 Cart</a>
+		      </li>
+		      <li class="nav-item dropdown">
+		      	<a class="nav-link dropdown-toggle ${currentPage === 'profile' ? 'active' : ''}" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+	          	${navUser}
+		        </a>
+		        <div class="dropdown-menu">
+		          <a class="dropdown-item navigation-trigger" href="#" data-target="${this.projectLink}/views/member/orders/index.php">My Orders</a>
+		          <a class="dropdown-item navigation-trigger" href="#" data-target="${this.projectLink}/views/member/profile/index.php">View Profile</a>
+		          <a class="dropdown-item navigation-trigger" href="#" data-target="${this.projectLink}/views/member/logout/index.php">Logout</a>
+		        </div>
+		      </li>
+		    </ul>
+		  </div>
+		`;
+	}
+
+	startListener() {
+		document.querySelectorAll('#ez-shopping-navbar .navigation-trigger') .forEach( currElement => {
+			currElement.addEventListener('click', e => {
+				window.location.assign(e.target.dataset.target);
+			});
+		});
+	}
 }
 
 class PaginationComponent {
@@ -180,7 +280,7 @@ class PaginationComponent {
 	  	return parseErr;
 	  } 
 	  for (let pageNumber = 1; pageNumber < pageLimit; pageNumber++) {
-	    pageBody += `<li class="page-item ${pageActive ? 'active' : ''} pagination-button"><button class="page-link" data-offset="${fetchOffset}" data-limit="${fetchLimit}">${pageNumber}</button></li>`;
+	    pageBody += `<li id="page-${pageNumber}" class="page-item ${pageActive ? 'active' : ''} pagination-button"><button class="page-link" data-offset="${fetchOffset}" data-limit="${fetchLimit}">${pageNumber}</button></li>`;
 	    fetchOffset = fetchOffset + fetchLimit;
 	    pageActive = false;
 	  }
@@ -191,6 +291,19 @@ class PaginationComponent {
 
 	sss() {
 		return 'world';
+	}
+}
+
+class SloganComponent {
+	constructor() {
+
+	}
+
+	createItemSlogan(dataObject) {
+		return `
+			<h4 class="h4">${dataObject.name}</h4>
+			<p class="lead">&emsp;&emsp;${dataObject.description}</p>
+		`;
 	}
 }
 
@@ -226,4 +339,4 @@ class SpinnerComponent {
 	}
 }
 
-export { AlertComponent, CardComponent, FormComponent, PaginationComponent,SpinnerComponent };
+export { AlertComponent, CardComponent, FormComponent, NavigationComponent, PaginationComponent, SloganComponent, SpinnerComponent };

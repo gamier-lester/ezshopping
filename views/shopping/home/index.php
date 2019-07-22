@@ -1,6 +1,5 @@
 <?php 
-	$pageTitle = "Home";
-	$section = "home";
+	$pageTitle = 'Shopping - Home';
 	$page_css = '/views/shopping/home/home.css';
 	$page_js = '/views/shopping/home/home.js';
 	require_once("../../../partials/header.php");
@@ -12,8 +11,8 @@
 				<div class="sticky-top z-index-1">
 					<p class="lead">Sort Items</p>
 					<div class="list-group">
-						<button class="list-group-item list-group-item-action <?php echo isset($_GET['sort']) ? $_GET['sort'] === 'low' ? 'active' : '' : 'active' ;?>" onclick="testingz()">Lowest Price</button>
-						<button class="list-group-item list-group-item-action <?php echo isset($_GET['sort']) ? $_GET['sort'] === 'high' ? 'active' : '' : '' ;?>">Highest Price</button>
+						<button class="list-group-item list-group-item-action sort-buttons active" onclick="sortItems('ASC', this)">Lowest Price</button>
+						<button class="list-group-item list-group-item-action sort-buttons" onclick="sortItems('DESC', this);">Highest Price</button>
 					</div>
 				</div>
 			</div>

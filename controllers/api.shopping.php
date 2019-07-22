@@ -33,11 +33,11 @@
 			}
 			$response_data['item_media'] = $media_array;
 
-			$query = "SELECT * FROM ecom_user_details WHERE user_id = ".$response_data['item_data']['merchant_id'];
+			$query = "SELECT u.user_id, u.user_firstname, u.user_lastname, u.user_email, m.media_link, uc.date_created as user_date_joined FROM ecom_user_details u LEFT JOIN ecom_user_media m ON m.user_id = u.user_id JOIN ecom_user_credentials uc ON u.user_id = uc.id WHERE u.user_id = ".$response_data['item_data']['merchant_id'] ." LIMIT 1";
 			$result = $conn->query($query);
 			$response_data['item_merchant'] = $result->fetch_assoc();
 
-			$query = "SELECT i.id, i.name, m.media_link, u.user_id FROM ecom_item_basics i JOIN ecom_item_media m ON i.id = m.item_id && m.type_id = 1 JOIN ecom_user_details u ON i.user_id = u.user_id WHERE u.user_id =".$response_data['item_data']['merchant_id'];
+			$query = "SELECT i.id, i.name, m.media_link, u.user_id FROM ecom_item_basics i JOIN ecom_item_media m ON i.id = m.item_id && m.type_id = 1 JOIN ecom_user_details u ON i.user_id = u.user_id WHERE u.user_id =".$response_data['item_data']['merchant_id'] . " LIMIT 3";
 			$result = $conn->query($query);
 			$related_search_array = array();
 			while ($row = $result->fetch_assoc()) {

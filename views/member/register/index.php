@@ -1,6 +1,5 @@
 <?php 
-	$pageTitle = "Register";
-	$section = "register";
+	$pageTitle = 'Register - Member';
 	$page_css = '/views/member/register/register.css';
 	$page_js = '/views/member/register/register.js';
 	require_once("../../../partials/header.php");
