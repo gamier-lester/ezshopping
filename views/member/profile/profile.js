@@ -347,20 +347,20 @@ itemApi.post(requestForm).then( response => {
   });
 });
 
-requestForm.set('request_process', 'fetch_user_message');
-requestForm.set('request_member_id', JSON.parse(window.localStorage.getItem('member')) .id);
-memberApi.post(requestForm).then( response => {
-  // console.log(response);
-  if (response.response_message.success) {
-    alertData.type = response.response_message.success ? 'success' : 'danger';
-    alertData.message = response.response_message.message;
-    messageContainerAlert.alert(alertData);
-  } else if (!response.response_message.success) {
-    alertData.type = response.response_message.success ? 'success' : 'danger';
-    alertData.message = response.response_message.message;
-    messageContainerAlert.alert(alertData);
-  }
-});
+// requestForm.set('request_process', 'fetch_user_message');
+// requestForm.set('request_member_id', JSON.parse(window.localStorage.getItem('member')) .id);
+// memberApi.post(requestForm).then( response => {
+//   // console.log(response);
+//   if (response.response_message.success) {
+//     alertData.type = response.response_message.success ? 'success' : 'danger';
+//     alertData.message = response.response_message.message;
+//     messageContainerAlert.alert(alertData);
+//   } else if (!response.response_message.success) {
+//     alertData.type = response.response_message.success ? 'success' : 'danger';
+//     alertData.message = response.response_message.message;
+//     messageContainerAlert.alert(alertData);
+//   }
+// });
 
 
 // set functions to window
