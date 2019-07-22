@@ -84,7 +84,6 @@ function addItem(formData) {
       requestForm = new FormData();
       requestForm.set('request_process', 'add_item_detail');
       requestForm.set('request_member_id', JSON.parse(window.localStorage.getItem('member')) .id);
-      // requestForm.set('request_item_media', downloadURL);
       requestForm.set('request_item_name', requestData.form_item_name.value);
       requestForm.set('request_item_description', requestData.form_item_description.value);
       requestForm.set('request_item_price', requestData.form_item_price.value);

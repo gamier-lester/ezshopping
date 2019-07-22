@@ -74,6 +74,7 @@
 				$response_data['response_message']['message'] = "User doesn't have any media";
 				$response_data['response_message']['success'] = FALSE;
 			}
+			$result->free();
 			$conn->close();
 			echo json_encode($response_data);
 			break;
@@ -92,6 +93,7 @@
 				$response_data['response_message']['message'] = 'User doesn\'t have any existing record';
 				$response_data['response_message']['success'] = FALSE;
 			}
+			$result->free();
 			$conn->close();
 			echo json_encode($response_data);
 			break;
@@ -157,6 +159,7 @@
 						$response_data['response_message']['success'] = FALSE;
 					}
 				}
+				$result->free();
 				$conn->close();
 				echo json_encode($response_data);
 				break;
