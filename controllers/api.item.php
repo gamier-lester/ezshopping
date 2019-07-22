@@ -20,30 +20,38 @@
 	$response_data = array();
 	$response_data['response_message'] = array();
 	switch ($_POST['request_process']) {
-		case 'add_item':
+		case 'add_item_detail':
 			$user_id = sanitize_input($_POST['request_member_id']);
 			$item_description = sanitize_input($_POST['request_item_description']);
-			$item_media = sanitize_input($_POST['request_item_media']);
 			$item_name = sanitize_input($_POST['request_item_name']);
 			$item_price = sanitize_input($_POST['request_item_price']);
 			$item_price = bcdiv(strval($item_price), '1', 2);
 			$query = "INSERT INTO ecom_item_basics (user_id, status_id, type_id, name, description, price) VALUES ($user_id, 1, 1, '$item_name', '$item_description', '$item_price')";
 			if ($conn->query($query) === TRUE) {
-				$item_id = $conn->insert_id;
-				$query = "INSERT INTO ecom_item_media (item_id, status_id, type_id, media_link) VALUES ($item_id, 1, 1, '$item_media')";
-				if ($conn->query($query) === TRUE) {
-					$response_data['response_message']['message'] = 'Successfully added new item!';
-					$response_data['response_message']['success'] = TRUE;
-				} else {
-					$response_data['response_message']['message'] = 'Item image upload is unsuccessful';
-					$response_data['response_message']['success'] = TRUE;
-				}
+				$response_data['item_id'] = $conn->insert_id;
+				$response_data['response_message']['message'] = 'Successfully added new item';
+				$response_data['response_message']['success'] = TRUE;
 			} else {
 				$response_data['response_message']['message'] = 'Failed: Item could not be added';
 				$response_data['response_message']['success']= FALSE;
 			}
-			$conn->close();
 			echo json_encode($response_data);
+			$conn->close();
+			break;
+
+		case 'add_item_media':
+			$item_id = sanitize_input($_POST['request_item_id']);
+			$item_media = sanitize_input($_POST['request_item_media']);
+			$query = "INSERT INTO ecom_item_media (item_id, status_id, type_id, media_link) VALUES ($item_id, 1, 1, '$item_media')";
+			if ($conn->query($query) === TRUE) {
+				$response_data['response_message']['message'] = 'Successfully added new item';
+				$response_data['response_message']['success'] = TRUE;
+			} else {
+				$response_data['response_message']['message'] = 'Failed: Item could not be added';
+				$response_data['response_message']['success']= FALSE;
+			}
+			echo json_encode($response_data);
+			$conn->close();
 			break;
 
 		case 'fetch_one':

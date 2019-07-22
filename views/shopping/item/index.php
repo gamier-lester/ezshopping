@@ -10,7 +10,7 @@
 			<div class="col-lg-12">
 				<button id="go-back-button" class="btn btn-block btn-outline-primary col-lg-4 ml-auto">Go back to Shopping</button>
 			</div>
-			<div id="page-alert" class="col-lg-12"></div>
+			<div id="page-alert" class="col-lg-12 mt-2"></div>
 			<div id="item-profile" class="col-lg-3">
 				Nothing to Display
 			</div>
