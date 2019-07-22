@@ -1,6 +1,6 @@
 export default
 {
-	"production" : false,
+	"production" : true,
 	"environment" : "development",
 	"projectUrl" : {
 		"production" : "",
