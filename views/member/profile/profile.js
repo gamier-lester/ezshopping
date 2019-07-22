@@ -300,23 +300,23 @@ memberApi.post(requestForm).then( response => {
 
 // console.log(JSON.parse(window.localStorage.getItem('member')));
 profileDetailsLoading.start();
-requestForm.set('request_process', 'fetch_user_data');
-requestForm.set('request_member_id', JSON.parse(window.localStorage.getItem('member')) .id);
-requestForm.set('request_member_access_token', JSON.parse(window.localStorage.getItem('member')) .access_token);
-memberApi.post(requestForm).then( response => {
-  if (response.response_message.success) {
-    profileDetailsLoading.end();
-    let profileDetailsForm = document.querySelector('#profile-details-container');
-    profileDetailsForm.form_profile_username.value = response.member_details.member_username;
-    profileDetailsForm.form_profile_email.value = response.member_details.member_email;
-    profileDetailsForm.form_profile_firstname.value = response.member_details.member_firstname;
-    profileDetailsForm.form_profile_lastname.value = response.member_details.member_lastname;
-  } else if (!response.response_message.success) {
-    profileDetailsLoading.end();
-    alertData.type = 'Warning';
-    alertData.message = response.response_message.message;
-  }
-});
+// requestForm.set('request_process', 'fetch_user_data');
+// requestForm.set('request_member_id', JSON.parse(window.localStorage.getItem('member')) .id);
+// requestForm.set('request_member_access_token', JSON.parse(window.localStorage.getItem('member')) .access_token);
+// memberApi.post(requestForm).then( response => {
+//   if (response.response_message.success) {
+//     profileDetailsLoading.end();
+//     let profileDetailsForm = document.querySelector('#profile-details-container');
+//     profileDetailsForm.form_profile_username.value = response.member_details.member_username;
+//     profileDetailsForm.form_profile_email.value = response.member_details.member_email;
+//     profileDetailsForm.form_profile_firstname.value = response.member_details.member_firstname;
+//     profileDetailsForm.form_profile_lastname.value = response.member_details.member_lastname;
+//   } else if (!response.response_message.success) {
+//     profileDetailsLoading.end();
+//     alertData.type = 'Warning';
+//     alertData.message = response.response_message.message;
+//   }
+// });
 
 requestForm.set('request_process', 'fetch_user_items');
 requestForm.set('request_member_id', JSON.parse(window.localStorage.getItem('member')) .id);
