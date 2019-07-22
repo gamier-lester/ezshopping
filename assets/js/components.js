@@ -20,7 +20,8 @@
 //     }
 // }
 
-const projectUrl = 'http://localhost:8080/e-commerce';
+// const projectUrl = 'http://localhost:8080/e-commerce';
+const projectUrl = 'https://ez-shopping.herokuapp.com';
 class AccordionComponent {
 	constructor() {
 
