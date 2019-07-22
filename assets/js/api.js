@@ -5,7 +5,7 @@ export default class ApiCall {
 
 	async post(form) {
 		return await fetch(
-			`http://localhost:8080/e-commerce/controllers/${this.apiCall}`,
+			`https://ez-shopping.herokuapp.com/controllers/${this.apiCall}`,
 			{
 		    method: 'POST',
 				body: form

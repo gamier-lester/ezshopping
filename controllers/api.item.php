@@ -15,7 +15,7 @@
 	header('Access-Control-Max-Age: 86400');
 
 	header("Access-Control-Allow-Method: GET, POST, OPTIONS");
-	header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+	// header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
 
 	$response_data = array();
 	$response_data['response_message'] = array();
