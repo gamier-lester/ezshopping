@@ -63,7 +63,7 @@
 
 		case 'fetch_primary_media':
 			$user_id = sanitize_input($_POST['request_member_id']);
-			$query = "SELECT id, media_link FROM ecom_user_media WHERE user_id = $user_id AND type_id = 1 AND status_id = 1 ORDER BY id LIMIT 1";
+			$query = "SELECT id, media_link FROM ecom_user_media WHERE user_id = $user_id AND type_id = 1 AND status_id = 1 ORDER BY id DESC LIMIT 1";
 			$result = $conn->query($query);
 			if ($result->num_rows > 0) {
 				$response_data['media_link'] = array();
