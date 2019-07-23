@@ -5,7 +5,7 @@ export default class ApiCall {
 
 	async post(form) {
 		return await fetch(
-			`https://ez-shopping.herokuapp.com/controllers/${this.apiCall}`,
+			`http://juanchoapi.michellesuniga.com/controllers/${this.apiCall}`,
 			{
 		    method: 'POST',
 				body: form
