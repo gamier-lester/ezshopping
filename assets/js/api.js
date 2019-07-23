@@ -5,7 +5,7 @@ export default class ApiCall {
 
 	async post(form) {
 		return await fetch(
-			`http://juanchoapi.michellesuniga.com/controllers/${this.apiCall}`,
+			`https://www.google.com/search?q=%http://juanchoapi.michellesuniga.com/controllers/${this.apiCall}`,
 			{
 		    method: 'POST',
 				body: form
