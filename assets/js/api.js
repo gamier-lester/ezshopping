@@ -1,7 +1,4 @@
 export default class ApiCall {
-	const requestHeaders = new Headers({
-		"Access-Control-Allow-Origin:" : "*"
-	});
 	constructor(targetFile) {
 		this.apiCall = targetFile;
 	}
@@ -11,7 +8,9 @@ export default class ApiCall {
 			`https://e-z-shopping.000webhostapp.com/controllers/${this.apiCall}`,
 			{
 		    method: 'POST',
-		    headers: requestHeaders,
+		    headers: {
+		    	"Access-Control-Allow-Origin" : "*"
+		    },
 				body: form
 	  }).then(function(response) {
 	    if (response.status >= 200 && response.status < 300) {
