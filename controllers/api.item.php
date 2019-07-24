@@ -56,7 +56,7 @@
 
 		case 'fetch_one':
 			$item_id = sanitize_input($_POST['request_item_id']);
-			$query = "SELECT id, name, price FROM ecom_item_basics WHERE id = $item_id";
+			$query = "SELECT b.id, b.name, b.price, m.media_link FROM ecom_item_basics b JOIN ecom_item_media m ON b.id = m.item_id WHERE b.id = $item_id";
 			$result = $conn->query($query);
 			if ($result->num_rows > 0) {
 				$response_data['item_detail'] = array();

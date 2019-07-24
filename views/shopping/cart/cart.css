@@ -1,0 +1,7 @@
+div#cart-container.row div.col-lg-5 div.card img.card-img {
+	height: 280px;
+}
+
+div#cart-related.row div.col-lg-3 img.card-img {
+	height: 200px;
+}

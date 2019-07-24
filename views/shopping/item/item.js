@@ -38,17 +38,21 @@ function addToCart(triggerElement) {
 		orderData.order_quantity = parseInt(formData.order_quantity.value);
 		if (JSON.parse(window.localStorage.getItem('cart')) === null) {
 			let cart = new Array();
-			cart[orderData.id] = orderData;
+			cart.push(orderData);
 			window.localStorage.setItem('cart', JSON.stringify(cart));
 		} else if (JSON.parse(window.localStorage.getItem('cart')) !== null) {
 			let cart = JSON.parse(window.localStorage.getItem('cart'));
-			if (cart[orderData.id] === undefined || cart[orderData.id] === null) {
-				cart[orderData.id] = orderData;
-				window.localStorage.setItem('cart', JSON.stringify(cart));
-			} else if (cart[orderData.id] !== undefined) {
-				cart[orderData.id] .order_quantity = parseInt(cart[orderData.id] .order_quantity) + parseInt(orderData.order_quantity);
-				window.localStorage.setItem('cart', JSON.stringify(cart));
+			let itemCheck = false;
+			cart.forEach(item => {
+				if (item.id === orderData.id) {
+					item.order_quantity = parseInt(item.order_quantity) + parseInt(orderData.order_quantity);
+					itemCheck = true;
+				}
+			});
+			if (itemCheck === false) {
+				cart.push(orderData);
 			}
+			window.localStorage.setItem('cart', JSON.stringify(cart));
 		}
 		alertData.type = 'success';
 		alertData.message = 'Successfully added to cart';

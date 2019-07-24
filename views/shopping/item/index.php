@@ -19,7 +19,7 @@
 			<div class="col-lg-12 mt-5">
 				<p class="h4"><i>Items from the same store...</i></p>
 			</div>
-			<div id="item-related-search" class="col-lg-12 pt-3 row justify-content-around"></div>
+			<div id="item-related-search" class="col-lg-12 pt-3 row"></div>
 		</div>
 	</div>
 <?php require_once("../../../partials/footer.php") ?>

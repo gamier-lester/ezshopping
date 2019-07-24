@@ -1,0 +1,7 @@
+main#main img {
+	height: 250px;
+}
+
+div#item-related-search > div.card {
+  margin-right: 10px;
+}

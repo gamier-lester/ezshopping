@@ -20,8 +20,8 @@
 //     }
 // }
 
-// const projectUrl = 'http://localhost:8080/e-commerce';
-const projectUrl = 'https://ez-shopping.herokuapp.com';
+const projectUrl = 'http://localhost:8080/e-commerce';
+// const projectUrl = 'https://ez-shopping.herokuapp.com';
 class AccordionComponent {
 	constructor() {
 
@@ -115,6 +115,43 @@ class CardComponent {
         	<img src="${this.cardImage}" class="card-img pt-2">
         </div>
     	</div>
+		`;
+	}
+
+	createCartItem(params) {
+		return `
+			<div id="item-${this.cardId}" class="col-lg-5">
+				<div class="card mb-3">
+				  <div class="row no-gutters">
+				    <div class="col-md-6">
+				      <img src="${this.cardImage}" class="card-img" alt="...">
+				    </div>
+				    <div class="col-md-6">
+				      <div class="card-body">
+				        <h5 class="card-title">
+				        	${this.cardTitle}
+				        	<button type="button" class="close" data-target-id="${this.cardId}" aria-label="Close">
+				          	<span data-target-id="${this.cardId}" aria-hidden="true">&times;</span>
+				        	</button>
+	      				</h5>
+				        <p class="card-text">
+				        <small class="text-muted">Price ${params.item_price}</small>
+				        x #
+				        <small id="item-${this.cardId}-price" class="text-muted">${params.item_quantity}</small>
+				        </p>
+				        <p id="item-${this.cardId}-total" data-target-price="${params.item_price}" class="card-text">Total Amount: ${params.order_price}</p>
+				        <form id="item-${this.cardId}-form">
+				        	<div class="form-group">
+				        		<label for="order_quantity">Order Quantity</label>
+				        		<input type="number" name="order_quantity" id="order_quantity" class="form-control" min="1" value="${params.item_quantity}">
+				        	</div>
+				        	<button data-item-id="${this.cardId}" type="button" class="btn btn-block btn-success update-button">Update Order</button>
+				        </form>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+			</div>
 		`;
 	}
 }
@@ -216,7 +253,7 @@ class NavigationComponent {
 		        <a class="nav-link ${currentPage === 'home' ? 'active' : ''} navigation-trigger" href="#" data-target="${this.projectLink}/views/shopping/home/index.php">📝 Home</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link ${currentPage === 'cart' ? 'active' : ''} navigation-trigger" href="#" data-target="${this.projectLink}/views/shopping/">📝 Cart</a>
+		        <a class="nav-link ${currentPage === 'cart' ? 'active' : ''} navigation-trigger" href="#" data-target="${this.projectLink}/views/shopping/cart/index.php">📝 Cart</a>
 		      </li>
 		      <li class="nav-item dropdown">
 		      	<a class="nav-link dropdown-toggle ${currentPage === 'profile' ? 'active' : ''}" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
@@ -305,6 +342,10 @@ class SloganComponent {
 			<h4 class="h4">${dataObject.name}</h4>
 			<p class="lead">&emsp;&emsp;${dataObject.description}</p>
 		`;
+	}
+
+	createEmptySetSlogan(dataObject) {
+		return `<p class="lead">Result seems to be empty</p>`;
 	}
 }
 
