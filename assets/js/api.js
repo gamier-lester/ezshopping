@@ -8,9 +8,6 @@ export default class ApiCall {
 			`https://e-z-shopping.000webhostapp.com/controllers/${this.apiCall}`,
 			{
 		    method: 'POST',
-		    headers: {
-		    	"Access-Control-Allow-Origin" : "*"
-		    },
 				body: form
 	  }).then(function(response) {
 	    if (response.status >= 200 && response.status < 300) {
