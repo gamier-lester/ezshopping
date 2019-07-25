@@ -1,11 +1,13 @@
+import config from '../../config/config.js';
 export default class ApiCall {
 	constructor(targetFile) {
 		this.apiCall = targetFile;
+		this.urlPath = config.production ? config.projectApi.production : config.projectApi.development;
 	}
 
 	async post(form) {
 		return await fetch(
-			`https://e-z-shopping.000webhostapp.com/controllers/${this.apiCall}`,
+			`${this.urlPath}/controllers/${this.apiCall}`,
 			{
 		    method: 'POST',
 				body: form

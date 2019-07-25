@@ -1,6 +1,6 @@
 <?php
-	// $url_path = "/e-commerce";
-	$url_path = "https://ez-shopping.herokuapp.com";
+	$url_path = "/e-commerce";
+	// $url_path = "https://ez-shopping.herokuapp.com";
 	define("ROOT_DIR", realpath(__DIR__."/.."));
 	define("ROOT_URL", $url_path);
 	
