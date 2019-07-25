@@ -1,19 +1,69 @@
 // imports
 import config from '../../../config/config.js';
-import { CardComponent, NavigationComponent, SloganComponent } from '../../../assets/js/components.js';
+import { AlertComponent, CardComponent, NavigationComponent, SloganComponent, SpinnerComponent } from '../../../assets/js/components.js';
 import  ApiCall from '../../../assets/js/api.js';
 
 // variables
+const pageAlert = new AlertComponent('cart-alert');
+const placeOrderLoading = new SpinnerComponent('process-orders-button');
+const cartLoading = new SpinnerComponent('cart-container');
+const cartRelatedLoading = new SpinnerComponent('cart-related');
+const orderApi = new ApiCall('api.order.php');
 const itemApi = new ApiCall('api.item.php');
+const transactionApi = new ApiCall('api.transaction.php');
 const projectUrl = config.production ? config.projectUrl.production : config.projectUrl.development;
 const pageNav = new NavigationComponent(projectUrl);
 const slogans = new SloganComponent();
 const cartItems = JSON.parse(window.localStorage.getItem('cart'));
 let randomIndex = 0;
 let cartIndex = 0;
+let transactionId = 0;
+let orderIndex = 0;
+let uploadStatus = true;
 let requestForm = new FormData();
+let alertData = {};
 
 // functions
+const addOrderLoop = function(arr) {
+	addOrder(arr[orderIndex], function() {
+		orderIndex++;
+
+		if (orderIndex < arr .length) {
+			addOrderLoop(arr);
+		} else {
+			window.localStorage.removeItem('cart');
+			cartLoading.end();
+			cartRelatedLoading.end();
+			placeOrderLoading.end();
+			document.querySelector('#process-orders-button').style.display = 'none';
+			document.querySelector('#cart-container').innerHTML = slogans.createEmptySetSlogan();
+		}
+
+	});
+}
+
+function addOrder(arr, callback) {
+	requestForm.set('request_process', 'create_order');
+	requestForm.set('request_transaction_id', transactionId);
+	requestForm.set('request_item_id', arr.id);
+	requestForm.set('request_item_price', arr.price);
+	requestForm.set('request_item_quantity', arr.order_quantity);
+	requestForm.set('request_merchant_id', arr.merchant_id);
+	requestForm.set('request_order_amount', (arr.price * arr.order_quantity) .toFixed(2));
+	orderApi.post(requestForm).then(response => {
+		if (response.response_message.success) {
+			window.sessionStorage.setItem('last_order_placed', orderIndex);
+			alertData.type = 'success';
+			alertData.message = response.response_message.message;
+			pageAlert.alert(alertData);
+		} else {
+			uploadStatus = false;
+			console.log('something failed');
+		}
+	});
+	callback();
+}
+
 function appendItemLink(event) {
   let itemLink = window.open(`${projectUrl}/views/shopping/item/index.php`, '_blank');
   itemLink.itemId = event.target.dataset.itemId;
@@ -57,6 +107,7 @@ function fetchItem(item, callback) {
 	requestForm.set('request_process', 'fetch_one');
 	requestForm.set('request_item_id', item.id);
 	itemApi.post(requestForm).then( response => {
+		cartLoading.end();
 		let cardData = {};
 		let cardParams = {};
 		cardData.cardId = response.item_detail.id;
@@ -86,6 +137,7 @@ function fetchRandomItem(index, callback) {
 	requestForm.set('request_process', 'fetch_one');
 	requestForm.set('request_item_id', randomIndex+1);
 	itemApi.post(requestForm).then( response => {
+		cartRelatedLoading.end();
 		let cardData = {};
 		cardData.cardId = response.item_detail.id;
 		cardData.cardTitle = response.item_detail.name;
@@ -98,6 +150,24 @@ function fetchRandomItem(index, callback) {
 
 function goBack() {
 	window.location.assign(projectUrl+'/views/shopping/home/index.php');
+}
+
+function placeOrders(e) {
+	e.disabled = true;
+	placeOrderLoading.start();
+	cartLoading.start();
+	cartRelatedLoading.start();
+	let orders = JSON.parse(window.localStorage.getItem('cart'));
+	requestForm = new FormData();
+	requestForm.set('request_process', 'create_transaction');
+	requestForm.set('request_member_id', JSON.parse(window.localStorage.getItem('member')) .id);
+	transactionApi.post(requestForm).then( reqResponse => {
+		console.log(reqResponse);
+		if (reqResponse.response_message.success) {
+			transactionId = reqResponse.transaction_details.transaction_id;
+			addOrderLoop(orders);
+		}
+	});
 }
 
 function removeItem(trigger) {
@@ -140,11 +210,15 @@ document.querySelector('#go-back-button').addEventListener('click', function() {
 
 if (JSON.parse(window.localStorage.getItem('cart')) === null  || JSON.parse(window.localStorage.getItem('cart')) .length === 0) {
 	document.querySelector('#cart-container').innerHTML = slogans.createEmptySetSlogan();
+	document.querySelector('#process-orders-button').style.display = 'none';
 } else if (JSON.parse(window.localStorage.getItem('cart')) !== null) {
+	cartLoading.start();
 	fetchCartLoop(cartItems);
 }
 
+cartRelatedLoading.start();
 fetchRandomLoop(randomIndex);
 
 
 // window.functions
+window.placeOrders = placeOrders;

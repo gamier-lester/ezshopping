@@ -374,6 +374,9 @@ class SpinnerComponent {
 	}
 
 	end() {
+		if (document.querySelector(`#spinner-${this.targetElement}`) === null ) {
+			return false;
+		}
 		if (this.wholeScreen === true) {
 			document.body.style.overflow = 'auto';
 		}
