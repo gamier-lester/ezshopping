@@ -62,7 +62,7 @@
 			    <div class="row">
 			    	<div class="col-lg-6">
 			    		<div id="add-item-image" class="image-overlay-container" onmouseover="toggleFormAlert(this);">
-							  <img id="new_item_display_picture" src="<?php echo DEFAULTDP; ?>" alt="Avatar" class="image-overlay-image">
+							  <img id="new_item_display_picture" src="https://firebasestorage.googleapis.com/v0/b/ez-shopping-11c7a.appspot.com/o/images%2Favatar.png?alt=media&token=8239916f-7b64-4960-b0c2-b89a9cfb6b4f" alt="Avatar" class="image-overlay-image">
 							  <div class="image-overlay-middle">
 							    <div class="image-overlay-text"><label for="form_item_container_media_primary">Upload Item Photo</label></div>
 							  </div>
