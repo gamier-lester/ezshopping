@@ -22,6 +22,11 @@ let alertData = {};
 let requestForm = new FormData();
 
 // functions
+function appendItemLink(event) {
+  let memberLink = window.open(`${projectUrl}/views/member/member/index.php`, '_blank');
+  memberLink.merchantId = event.target.dataset.userId;
+}
+
 function addToCart(triggerElement) {
 	let formData = document.querySelector(triggerElement.target.dataset.target);
 	if (formData.order_quantity.value === '' || parseInt(formData.order_quantity.value) < 0) {
@@ -97,10 +102,7 @@ function setProcessEvents() {
 		addToCart(e);
 	});
 	document.querySelector('.visit-merchant').addEventListener('click', e => {
-		// visitMerchant(e);
-	});
-	document.querySelector('.message-merchant').addEventListener('click', e => {
-		// messageMerchant(e);
+		appendItemLink(e);
 	});
 	document.querySelectorAll('.card-link') .forEach(e => {
 		e.addEventListener('click', event => {

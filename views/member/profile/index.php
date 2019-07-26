@@ -49,7 +49,6 @@
 				</form>
 				<div class="list-group">
 				  <button type="button" class="list-group-item list-group-item-action profile-nav active cursor-pointer" data-toggle="collapse" data-target="#view_items" onclick="toggleNavActive(this)" disabled="true">My Items</button>
-				  <button type="button" class="list-group-item list-group-item-action profile-nav cursor-pointer" data-toggle="collapse" data-target="#view_messages" onclick="toggleNavActive(this)">My Messages</button>
 				</div>
 			</div>
 		</div>
@@ -100,42 +99,7 @@
 			</div>
 		</div>
 
-		<div class="col-lg-8 collapse" id="view_messages">
-			<div id="message-alert-container" class="col-lg-12"></div>
-			<div class="col-lg-12">
-				<div class="accordion" id="messageAccordion">
-				  <div class="card">
-				    <div class="card-header">
-				      <h2 class="mb-0">
-				        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#new_message">
-				          Send New Message
-				        </button>
-				      </h2>
-				    </div>
-
-				    <div id="new_message" class="collapse show" data-parent="#messageAccordion">
-				      <div class="card-body">
-				        <form>
-								  <div class="form-group">
-								    <label for="contact_list">Recipient</label>
-								    <select class="form-control" id="contact_list" name="receiver_id">
-								    	<option></option>
-								    </select>
-								  </div>
-								  <div class="form-group">
-								    <label for="message_content">Message</label>
-								    <textarea class="form-control" id="message_content" name="message_content" placeholder="Your message here..." rows="3" required></textarea>
-								  </div>
-								  <div class="form-group">
-								  	<button type="submit" class="btn btn-block btn-success">Send Message!</button>
-								  </div>
-								</form>
-				      </div>
-				    </div>
-				  </div>
-				</div>
-			</div>
-		</div>
+		
 
 	</section>
 </div>

@@ -3,7 +3,6 @@ import { AlertComponent, FormComponent, NavigationComponent, SpinnerComponent } 
 import config from '../../../config/config.js';
 
 // variables
-// const registerButtonLoading = new SpinnerComponent('register-button');
 const projectUrl = config.production ? config.projectUrl.production : config.projectUrl.development;
 const pageNav = new NavigationComponent(projectUrl);
 const profileContainerAlert = new AlertComponent('profile-alert-container');
@@ -344,21 +343,6 @@ itemApi.post(requestForm).then( response => {
       updateItemDetails(event.target.dataset.groupId, event.target);
     });
   });
-});
-
-requestForm.set('request_process', 'fetch_user_message');
-requestForm.set('request_member_id', JSON.parse(window.localStorage.getItem('member')) .id);
-memberApi.post(requestForm).then( response => {
-  // console.log(response);
-  if (response.response_message.success) {
-    alertData.type = response.response_message.success ? 'success' : 'danger';
-    alertData.message = response.response_message.message;
-    messageContainerAlert.alert(alertData);
-  } else if (!response.response_message.success) {
-    alertData.type = response.response_message.success ? 'success' : 'danger';
-    alertData.message = response.response_message.message;
-    messageContainerAlert.alert(alertData);
-  }
 });
 
 

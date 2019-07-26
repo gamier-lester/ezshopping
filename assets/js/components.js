@@ -1,27 +1,3 @@
-// function createElement(element, ) {
-// 	alertElement = 
-// 	<div class="alert alert-danger alert-dismissible fade show col-lg-12" role="alert">
-// 	  <?php echo $_SESSION['add-to-cart_error-message']; ?>
-// 	  <button type="button" class="close" data-dismiss="alert">
-// 	  	<span>&times;</span>
-// 	  </button>
-// 	  <?php unset($_SESSION['add-to-cart_error-message']); ?>
-// 	</div>
-// }
-
-// class Hero {
-// 	constructor(name, level) {
-// 		this.name = name;
-// 		this.level = level;
-// 	}
-
-// 	greet() {
-//         return `${this.name} says hello.`;
-//     }
-// }
-
-const projectUrl = 'http://localhost:8080/e-commerce';
-// const projectUrl = 'https://ez-shopping.herokuapp.com';
 class AccordionComponent {
 	constructor() {
 
@@ -47,6 +23,52 @@ class AccordionComponent {
 		  </div>
 		`;
 	}
+
+	createTransactionList(transactionDetails) {
+		let textElement = `
+			<div class="accordion" id="transaction-${transactionDetails.id}-accordion">
+			  <div class="card">
+			    <div class="card-header">
+			      <h2 class="mb-0">
+			        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#transaction-${transactionDetails.id}-collapse">
+			          ${transactionDetails.transaction_code}&emsp;<small class="text-muted">${transactionDetails.transaction_date}</small>
+			        </button>
+			      </h2>
+			    </div>
+
+			    <div id="transaction-${transactionDetails.id}-collapse" class="collapse show" data-parent="#transaction-${transactionDetails.id}-accordion">
+			      <div class="card-body row justify-content-center">
+			      	<div class="col-lg-12">
+			      		Summary: <br>
+			      		&emsp;&emsp; Transaction Amount: ${transactionDetails.transaction_amount}
+			      	</div>`;
+		transactionDetails.orders .forEach( currentIndex => {
+			textElement += `
+      	<div class="col-lg-5 mb-2">
+	      	<div class="card">
+					  <div class="row no-gutters">
+					    <div class="col-md-4">
+					      <img src="${currentIndex.media_link}" class="card-img p-1" alt="...">
+					    </div>
+					    <div class="col-md-8">
+					      <div class="card-body">
+					        <h5 class="card-title">${currentIndex.item_name}</h5>
+					        <p class="card-text"><small class="text-muted">${currentIndex.merchant_name}</small></p>
+					        <p class="card-text">P${currentIndex.item_price} x #${currentIndex.order_quantity} = ${currentIndex.order_amount}</p>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+				</div>`;
+		});
+		textElement += `
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		`;
+		return textElement;
+	}
 }
 
 class AlertComponent {
@@ -62,6 +84,20 @@ class AlertComponent {
 			  	<span>&times;</span>
 			  </button>
 			</div>
+		`;
+	}
+}
+
+class ButtonComponent {
+	constructor() {
+
+	}
+
+	createTransactions(transactionData) {
+		return `
+			<button data-transaction-code="${transactionData.transaction_code}" data-transaction-id="${transactionData.id}" type="button" class="btn btn-primary transaction-button btn-block col-lg-10">
+			  ${transactionData.transaction_code} <span data-transaction-code="${transactionData.transaction_code}" data-transaction-id="${transactionData.id}" class="badge badge-light">${transactionData.transaction_date}</span>
+			</button>
 		`;
 	}
 }
@@ -100,8 +136,7 @@ class CardComponent {
 		    <p class="card-subtitle col-lg-12">${this.cardSubtitle}</p>
 		    <p class="card-text col-lg-12">Date Joined: ${this.cardText}</p>
 		    <div class="col-lg-12 row justify-content-around">
-		    	<button data-user-id="${this.cardId}" class="btn btn-block col-lg-5 m-0 btn-primary visit-merchant">Visit ${this.cardTitle}</button>
-	        <button data-user-id="${this.cardId}" class="btn btn-block col-lg-5 m-0 btn-success message-merchant">Message ${this.cardTitle}</button>
+		    	<button data-user-id="${this.cardId}" class="btn btn-block col-lg-12 m-0 btn-primary visit-merchant">Visit ${this.cardTitle}</button>
 				</div>
 			</div>
 		`;
@@ -154,6 +189,25 @@ class CardComponent {
 			</div>
 		`;
 	}
+
+	createMerchant() {
+		return `
+			<div class="card mb-3">
+			  <div class="row no-gutters">
+			    <div class="col-md-4">
+			      <img src="${this.cardImage}" class="card-img" alt="Avatar">
+			    </div>
+			    <div class="col-md-8">
+			      <div class="card-body mt-5">
+			        <h3 class="card-title">${this.cardTitle} <small class="text-muted">${this.cardText}</small></h3>
+							<p class="lead">${this.cardSubtitle}</p>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		`;
+	}
+	
 }
 
 class FormComponent {
@@ -163,7 +217,7 @@ class FormComponent {
 
 	generateItemForm(dataObject) {
 		return `
-		<div class="card card-body">
+		<div class="card card-body mb-2">
 	    <div class="row">
 	    	<div class="col-lg-6">
 	    		<div class="image-overlay-container">
@@ -260,9 +314,9 @@ class NavigationComponent {
 	          	${navUser}
 		        </a>
 		        <div class="dropdown-menu">
-		          <a class="dropdown-item navigation-trigger" href="#" data-target="${this.projectLink}/views/member/orders/index.php">My Orders</a>
+		          <a class="dropdown-item navigation-trigger" href="#" data-target="${this.projectLink}/views/member/order/index.php">My Orders</a>
 		          <a class="dropdown-item navigation-trigger" href="#" data-target="${this.projectLink}/views/member/profile/index.php">View Profile</a>
-		          <a class="dropdown-item navigation-trigger" href="#" data-target="${this.projectLink}/views/member/logout/index.php">Logout</a>
+		          <a class="dropdown-item" href="#" onclick="logOutUser()">Logout</a>
 		        </div>
 		      </li>
 		    </ul>
@@ -384,4 +438,4 @@ class SpinnerComponent {
 	}
 }
 
-export { AlertComponent, CardComponent, FormComponent, NavigationComponent, PaginationComponent, SloganComponent, SpinnerComponent };
+export { AccordionComponent, AlertComponent, ButtonComponent, CardComponent, FormComponent, NavigationComponent, PaginationComponent, SloganComponent, SpinnerComponent };

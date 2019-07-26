@@ -1,5 +1,4 @@
 <?php require_once(realpath(__DIR__."/../config/path.php")) ?>
-<?php require_once(realpath(__DIR__."/../controllers/library.php")) ?>
 <?php session_start(); ?>
 <?php global $page_css; ?>
 <!DOCTYPE html>

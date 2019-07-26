@@ -128,6 +128,8 @@ const fetchRandomLoop = function(index) {
 
 		if (randomIndex < 3) {
 			fetchRandomLoop(index);
+		} else {
+			setEventListener('view items');
 		}
 	});
 }
@@ -195,6 +197,7 @@ function updateCart(trigger) {
 	let totalDisplay = document.querySelector(`#item-${trigger.target.dataset.itemId}-total`);
 	totalDisplay.innerHTML = `Total Amount: ${(totalDisplay.dataset.targetPrice * cartForm.order_quantity.value) .toFixed(2)}`;
 }
+
 // functions ()
 if (JSON.parse(window.localStorage.getItem('member')) === null) {
   document.querySelector('#page-navigation .container').innerHTML += pageNav.setDefault();
