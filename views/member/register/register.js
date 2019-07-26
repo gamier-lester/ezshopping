@@ -18,15 +18,12 @@ function register(event) {
 	registerButtonLoading.start();
 	event.disabled = true;
 	memberApi.post(requestForm).then( response => {
-		if (response.response_message.success) {
-			window.localStorage.setItem('member', response.member);	
-		}
 		alertData.type = response.response_message.success ? 'success' : 'danger' ;
 		alertData.message = response.response_message.message;
 		registerAlert.alert(alertData);
 		registerButtonLoading.end();
 		if (response.response_message.success) {
-			window.location.assign(projectUrl+'views/member/login/index.php');
+			window.location.assign(projectUrl+'/views/member/login/index.php');
 		}
 	});
 	event.disabled = false;
